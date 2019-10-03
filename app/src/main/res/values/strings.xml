@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Craftify Wallpapers</string>
+    <string name="api_key">563492ad6f9170000100000114b600ee9f564948886cfa06f720417a
+    </string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="search_string">Search category</string>
+
+    <string-array name="numbers_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="time_format_array">
+        <item>minutes</item>
+        <item>hours</item>
+    </string-array>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Craftify</string>
+    <string name="nav_header_subtitle">craftify.wallpapers@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="automatically_change_wallpaper_title">Automatically\n Change Wallpaper</string>
+    <string name="tap_to_turn_on_or_off_auto">Tap to turn on or off</string>
+    <string name="duration_auto">Duration</string>
+    <string name="going_good_stat">Going good!</string>
+
+    <string name="ADMOB_ID">ca-app-pub-2724635946881674~2482573510</string>
+    <string name="TEST_UNIT_ID_BANNER">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="UNIT_ID_BANNER">ca-app-pub-2724635946881674/5441771166</string>
+    <string name="UNIT_ID_BANNER2">ca-app-pub-2724635946881674/7276477451</string>
+    <string name="TEST_UNIT_INTERSTITIAL">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="UNIT_INTERSTITIAL">ca-app-pub-2724635946881674/2370892871</string>
+</resources>

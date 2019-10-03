@@ -1,0 +1,453 @@
+package com.siddhant.craftifywallpapers.views.ui;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import android.app.SearchManager;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.Switch;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.siddhant.craftifywallpapers.R;
+import com.siddhant.craftifywallpapers.repositories.AppDatabase;
+import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
+import com.siddhant.craftifywallpapers.views.adapter.ViewPagerAdapterMain;
+
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private CheckBox checkboxChangeTheme;
+    private CheckBox checkboxNav;
+    ViewPager viewPagerMain;
+    TabLayout tabLayoutMain;
+    MainViewModel viewModel;
+    private SearchView searchView;
+    private FragmentTrending fragmentTrending;
+    private SearchRecentSuggestions suggestions;
+    private SearchManager searchManager;
+    LinearLayout mLinearLayout;
+    private AppBarLayout appBarLayout;
+    private FloatingActionButton fabChangeTheme,fabNavDrawer,favSearch;
+    private Switch switchChangeTheme;
+    public static boolean isNightModeEnabled;
+    private static final String ADMOB_ID="ca-app-pub-2724635946881674~2482573510";
+    private SharedPreferences preferences;
+    private ConstraintLayout constraintLayout;
+
+
+    public AppDatabase getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(AppDatabase database) {
+        this.database = database;
+    }
+
+    private AppDatabase database;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+
+
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        MobileAds.initialize(this, ADMOB_ID);
+        setContentView(R.layout.activity_main);
+        tabLayoutMain = findViewById(R.id.tabLayoutMain);
+        viewPagerMain = findViewById(R.id.viewPagerMain);
+        checkboxNav = findViewById(R.id.checkboxNav);
+
+
+        checkboxChangeTheme = findViewById(R.id.checkBoxchangeTheme);
+
+//        fabChangeTheme = findViewById(R.id.fabChangeTheme);
+//        fabNavDrawer = findViewById(R.id.fabNavDrawer);
+//        favSearch = findViewById(R.id.fabSearch);
+        constraintLayout = findViewById(R.id.linearLayout2);
+
+
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
+        final NavigationView navigationView = findViewById(R.id.nav_view_main);
+//        fabChangeTheme.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
+//                CardView cardView = findViewById(R.id.cardViewChangeTheme);
+//                cardView.startAnimation(animation);
+//                if(!isNightModeEnabled) {
+//                    isNightModeEnabled = true;
+//                    preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
+//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    fabChangeTheme.setImageResource(R.drawable.ic_brightness_3_black_24dp);
+//                }
+////                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                else{
+//                    isNightModeEnabled = false;
+//                    preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
+//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    fabChangeTheme.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
+////                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                }
+//            }
+//        });
+//        fabNavDrawer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(!drawer.isDrawerOpen(Gravity.LEFT)) {
+//                    drawer.openDrawer(Gravity.LEFT);
+//
+//                }
+//                else
+//                    drawer.closeDrawer(Gravity.LEFT);
+//            }
+//        });
+
+        navigationView.setNavigationItemSelectedListener(this);
+//        if(AppCompatDelegate.g==AppCompatDelegate.MODE_NIGHT_NO){
+//            checkboxChangeTheme.setChecked(true);
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            int x= 0;
+//        }
+
+
+
+        preferences = getSharedPreferences("statePref",MODE_PRIVATE);
+        if(isNightModeEnabled=preferences.getBoolean("NIGHT_MODE",false)) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            checkboxChangeTheme.setChecked(true);
+
+        }
+        suggestions = new SearchRecentSuggestions(this,
+                SuggestionProvider.AUTHORITY, SuggestionProvider.MODE);
+        MainActivity mainActivity = this;
+
+        viewModel = ViewModelProviders.of(mainActivity).get(MainViewModel.class);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                database = viewModel.getDatabaseInstance(getApplicationContext());
+                viewModel.setAllFav(database);
+                viewModel.setWallpaperFavLiveData();
+            }
+        }).start();
+        searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+
+
+
+
+
+
+        PagerAdapter pagerAdapter = new ViewPagerAdapterMain(getSupportFragmentManager());
+        viewPagerMain.setAdapter(pagerAdapter);
+        viewPagerMain.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutMain));
+
+
+        tabLayoutMain.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPagerMain.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==1)
+                    tab.setIcon(R.drawable.ic_favorite_black_tablayout_24dp);
+                else
+                    tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_black_tab_layout_24dp);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        viewPagerMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"vp clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+    checkboxNav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked)
+                drawer.openDrawer(Gravity.LEFT);
+            else
+                drawer.closeDrawer(Gravity.LEFT);
+        }
+    });
+    drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+            if(!checkboxNav.isChecked())
+                checkboxNav.setChecked(true);
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+            if(checkboxNav.isChecked())
+                checkboxNav.setChecked(false);
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
+        }
+    });
+
+        searchView = findViewById(R.id.searchView);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                suggestions.saveRecentQuery(query,null);
+                fragmentTrending = new FragmentTrending();
+                Bundle bundle = new Bundle();
+                bundle.putString("query",query);
+                fragmentTrending.setArguments(bundle);
+                fragmentTrending.show(getSupportFragmentManager(),query);
+                searchView.setIconifiedByDefault(true);
+
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return newText.length() > 0;
+            }
+
+        });
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)
+                    searchView.setIconifiedByDefault(true);
+            }
+        });
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                return true;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                CursorAdapter selectedView = searchView.getSuggestionsAdapter();
+                Cursor cursor = (Cursor) selectedView.getItem(position);
+                int index = cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1);
+                searchView.setQuery(cursor.getString(index), true);
+                return true;
+            }
+        });
+        checkboxChangeTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    isNightModeEnabled = true;
+                    preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                else{
+                    isNightModeEnabled = false;
+                    preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+
+
+            }
+        });
+
+
+
+
+    }
+    public void changeTheme(){
+        Log.i("onclick","change theme");
+    }
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.closeDatabase(database);
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main2, menu);
+        MenuItem item = menu.findItem(R.id.app_bar_switch_theme);
+
+
+
+
+
+
+
+//
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if(id == R.id.app_bar_search)
+            searchView = findViewById(R.id.app_bar_search);
+        if(id == R.id.app_bar_switch_theme){
+            if(item.isChecked())
+                item.setChecked(false);
+
+            else
+                item.setChecked(true);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            viewPagerMain.setCurrentItem(0);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
+            drawer.closeDrawer(GravityCompat.START);// Handle the camera action
+
+        } else if (id == R.id.contact_us) {
+            new BottomSheetContactUs().show(getSupportFragmentManager(),"contactUs");
+
+        } else if (id == R.id.nav_share) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey, try Craftify for some awesome looking wallpapers.\n"+"https://play.google.com/store/apps/details?id=com.siddhant.craftifywallpapers");
+            startActivity(shareIntent);
+
+        }
+        else if(id==R.id.rate_us)
+        {
+            Uri uri = Uri.parse("market://details?id="+getApplicationContext().getPackageName());
+            Intent i = new Intent(Intent.ACTION_VIEW,uri);
+            try {
+                startActivity(i);
+            }
+            catch (ActivityNotFoundException e){
+                startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName())));
+            }
+
+
+        }
+        else if(id==R.id.privacy_policy){
+            String policyIntent = "https://craftify-wallpapers.blogspot.com/2019/02/privacy-policy-siddhant-dubey-built.html";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(policyIntent));
+            startActivity(i);
+
+
+        }
+        else if(id==R.id.nav_favorites){
+            viewPagerMain.setCurrentItem(1);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
+            drawer.closeDrawer(GravityCompat.START);
+
+        }
+        else if(id== R.id.nav_auto_wallpaper){
+            viewPagerMain.setCurrentItem(2);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if(id == R.id.editor_trending_nav){
+            fragmentTrending = new FragmentTrending();
+            Bundle bundle = new Bundle();
+            bundle.putString("query","wallpapers");
+            fragmentTrending.setArguments(bundle);
+            if(!fragmentTrending.isVisible())
+                fragmentTrending.show(getSupportFragmentManager(),"trending");
+
+        }
+
+
+        return true;
+    }
+
+
+    public void openPexelSite(View view) {
+        String url = "https://www.pexels.com";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="Favorites" />
+        <item
+            android:id="@+id/editor_trending_nav"
+            android:icon="@drawable/ic_photo_filter_black_24dp"
+            android:title="Editor's collection" />
+        <item
+            android:id="@+id/nav_auto_wallpaper"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Automatic change" />
+
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/contact_us"
+                android:icon="@drawable/ic_contact_mail_black_24dp"
+                android:title="Contact us"
+                />
+            <item android:id="@+id/privacy_policy"
+                android:icon="@drawable/ic_lock_black_24dp"
+                android:title="Privacy policy"
+                />
+            <item
+                android:id="@+id/rate_us"
+                android:icon="@drawable/ic_rate_review_black_24dp"
+                android:title="Rate us"/>
+
+
+        </menu>
+    </item>
+
+</menu>
