@@ -1,43 +1,25 @@
 package com.siddhant.craftifywallpapers.views.ui;
 
-import androidx.annotation.DimenRes;
-import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentActivity;
 
 import android.app.WallpaperManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperPojo;
@@ -52,7 +34,7 @@ import com.stfalcon.imageviewer.loader.ImageLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-
+@SuppressWarnings("unchecked")
 public class PreviewWallpaperActivity extends AppCompatActivity {
 
     private ArrayList<String> stringUrl;
@@ -99,8 +81,8 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
         if(MainActivity.isNightModeEnabled){
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             imageButtonInfo.setImageResource(R.drawable.ic_info_white_24dp);
-            imageViewWallpaper.setImageResource(R.drawable.ic_wallpaper_white_24dp);
-            imageViewLockscreeen.setImageResource(R.drawable.ic_screen_lock_portrait_white_24dp);
+            imageViewWallpaper.setImageResource(R.drawable.ic_wallpaper_24dp);
+            imageViewLockscreeen.setImageResource(R.drawable.ic_screen_lock_portrait_24dp);
         }
 
 
@@ -122,8 +104,8 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
         cardViewLockscreen = view.findViewById(R.id.cardViewLockscreen);
 
         progressBar = view.findViewById(R.id.progressBarSetWallpaper);
-//        imageViewLockscreeen.setImageResource(R.drawable.ic_screen_lock_portrait_black_24dp);
-//        imageViewWallpaper.setImageResource(R.drawable.ic_wallpaper_black_24dp);
+//        imageViewLockscreeen.setImageResource(R.drawable.ic_screen_lock_portrait_24dp);
+//        imageViewWallpaper.setImageResource(R.drawable.ic_wallpaper_24dp);
 //        imageButtonInfo.setImageResource(R.drawable.ic_info_black_24dp);
 
         Intent intent = getIntent();

@@ -1,7 +1,6 @@
 package com.siddhant.craftifywallpapers.views.ui;
 
 import android.graphics.Point;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.siddhant.craftifywallpapers.R;
 
@@ -36,9 +33,9 @@ public class BottomSheetWallpaperType extends BottomSheetDialogFragment {
         imageViewPortrait = view.findViewById(R.id.imageButtonSetWallpaperPortrait);
         if(MainActivity.isNightModeEnabled)
         {
-            imageViewPortrait.setImageResource(R.drawable.ic_collections_white_24dp);
-            imageOriginal.setImageResource(R.drawable.ic_wallpaper_white_24dp);
-            imageViewLandscape.setImageResource(R.drawable.ic_landscape_white_24dp);
+            imageViewPortrait.setImageResource(R.drawable.ic_collections_24dp);
+            imageOriginal.setImageResource(R.drawable.ic_wallpaper_24dp);
+            imageViewLandscape.setImageResource(R.drawable.ic_landscape_24dp);
         }
 
         return view;

@@ -21,17 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.siddhant.craftifywallpapers.models.WallpaperApiResponsePojo;
-import com.siddhant.craftifywallpapers.models.WallpaperCatagoryPojo;
+import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
 import com.siddhant.craftifywallpapers.repositories.AppDatabase;
 import com.siddhant.craftifywallpapers.repositories.WallpaperApiService;
 import com.siddhant.craftifywallpapers.views.ui.MainActivity;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainViewModel extends ViewModel implements MainViewModelInterface{
 
-    private ArrayList<WallpaperCatagoryPojo> arrayListCategories;
+    private ArrayList<WallpaperCategoryPojo> arrayListCategories;
                 private MutableLiveData<List<WallpaperFavPojo>> wallpaperLiveData = new MutableLiveData<>();
                 private List<WallpaperFavPojo> wallpaperFavPojos;
 
@@ -51,7 +46,7 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
     public MutableLiveData<WallpaperApiResponsePojo> getLiveData() {
         return liveData;
     }
-    public MutableLiveData<ArrayList<WallpaperCatagoryPojo>> liveDataCatagories = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<WallpaperCategoryPojo>> liveDataCatagories = new MutableLiveData<>();
 
     private MutableLiveData<WallpaperApiResponsePojo> liveData = new MutableLiveData<>();
 
@@ -97,7 +92,7 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayListCategories = new ArrayList<>();
                 for(DataSnapshot d:dataSnapshot.getChildren()){
-                    arrayListCategories.add( d.getValue(WallpaperCatagoryPojo.class));
+                    arrayListCategories.add( d.getValue(WallpaperCategoryPojo.class));
 
                 }
                 liveDataCatagories.setValue(arrayListCategories);
@@ -117,7 +112,7 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
         return db;
     }
 
-    public MutableLiveData<ArrayList<WallpaperCatagoryPojo>> getLiveDataCatagories() {
+    public MutableLiveData<ArrayList<WallpaperCategoryPojo>> getLiveDataCatagories() {
         return liveDataCatagories;
     }
     @Override
@@ -185,13 +180,13 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
             if (networkInfo.getState()==NetworkInfo.State.CONNECTED || networkInfo1 .getState()==NetworkInfo.State.CONNECTED) {
 
 
-                if (timeFormat.equalsIgnoreCase("minutes")) {
-                    interval = (firstDigit * 10 + lastDigit) * 60000;
-                } else {
-                    interval = (firstDigit * 10 + lastDigit) * 3600000;
-                }
-                intent.putExtra("interval", interval);
-                intent.putExtra("category", category);
+//                if (timeFormat.equalsIgnoreCase("minutes")) {
+//                    interval = (firstDigit * 10 + lastDigit) * 60000;
+//                } else {
+//                    interval = (firstDigit * 10 + lastDigit) * 3600000;
+//                }
+//                intent.putExtra("interval", interval);
+//                intent.putExtra("category", category);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     mainActivity.startForegroundService(intent);
 

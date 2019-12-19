@@ -18,7 +18,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <activity android:name=".views.ui.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
 
         <activity
             android:name=".views.ui.PreviewWallpaperActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".views.ui.MainActivity">
             <intent-filter>
 
@@ -54,11 +54,10 @@
 
         <service
             android:name=".views.service.AutoWallpaperChanger"
-            android:enabled="true"
+
             android:exported="true"
 
 
-            android:process=":serviceProcess"
 
             >
 
@@ -71,6 +70,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

@@ -82,8 +82,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_screen_lock_portrait_black_24dp"
-                        app:srcCompat="@drawable/ic_screen_lock_portrait_black_24dp" />
+                        android:background="@drawable/ic_screen_lock_portrait_24dp"
+                        app:srcCompat="@drawable/ic_screen_lock_portrait_24dp" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -119,8 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_wallpaper_black_24dp"
-                        app:srcCompat="@drawable/ic_wallpaper_black_24dp" />
+                        android:background="@drawable/ic_wallpaper_24dp"
+                        app:srcCompat="@drawable/ic_wallpaper_24dp" />
 
                     <TextView
                         android:id="@+id/textView11"

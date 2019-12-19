@@ -27,6 +27,8 @@ public class FragmentFavourites extends Fragment {
     MainViewModel viewModel;
     List<WallpaperFavPojo> wallpaperFavPojoList;
     private AppDatabase database;
+    private MainActivity mainActivity;
+
 
     @Nullable
     @Override
@@ -34,7 +36,7 @@ public class FragmentFavourites extends Fragment {
         View root = inflater.inflate(R.layout.favorite_fragment,container,false);
         recyclerView = root.findViewById(R.id.recyclerViewFavorite);
 
-        final MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
         viewModel = mainActivity.viewModel;
         database = mainActivity.getDatabase();
 
@@ -59,7 +61,7 @@ int x=0;
 
                             }
                         };
-                        viewModel.getWallpaperFavLiveData().observe(getActivity(),wallpaperFavPojoObserver);
+                     viewModel.getWallpaperFavLiveData().observe(getActivity(),wallpaperFavPojoObserver);
                     }
                 });
 
@@ -112,4 +114,5 @@ int x=0;
         super.onActivityCreated(savedInstanceState);
        // viewModel.setWallpaperFavLiveData();
     }
+
 }

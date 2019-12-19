@@ -2,6 +2,7 @@ package com.siddhant.craftifywallpapers.views.ui;
 
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,7 +25,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.siddhant.craftifywallpapers.R;
-import com.siddhant.craftifywallpapers.models.WallpaperCatagoryPojo;
+import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
 import com.siddhant.craftifywallpapers.views.service.AutoWallpaperChanger;
 
@@ -44,6 +46,7 @@ public class FragmentAutoChanger extends Fragment {
     private Switch switchStartSevice;
     private int processId;
     private AdView adViewBanner;
+    private CardView cardViewUnlockCraftify;
 
     @Nullable
     @Override
@@ -53,7 +56,9 @@ public class FragmentAutoChanger extends Fragment {
         spinnerLastDigit = view.findViewById(R.id.spinnerSecondDigit);
         spinnerCatagories = view.findViewById(R.id.spinnerWallpaperCatagory);
         spinnerTimeFormat = view.findViewById(R.id.spinnerTimeFormat);
-        textView = view.findViewById(R.id.textViewPromtUserAuto);
+        cardViewUnlockCraftify = view.findViewById(R.id.cardViewUnlockCraftify);
+
+       // textView = view.findViewById(R.id.textViewPromtUserAuto);
         switchStartSevice = view.findViewById(R.id.switchStartServiceAuto);
         adViewBanner = view.findViewById(R.id.adView);
         mainActivity = (MainActivity) getActivity();
@@ -65,10 +70,10 @@ public class FragmentAutoChanger extends Fragment {
 
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.fetchCategory();
-        final Observer<ArrayList<WallpaperCatagoryPojo>> observer = new Observer<ArrayList<WallpaperCatagoryPojo>>() {
+        ((MainViewModel) viewModel).fetchCategory();
+        final Observer<ArrayList<WallpaperCategoryPojo>> observer = new Observer<ArrayList<WallpaperCategoryPojo>>() {
             @Override
-            public void onChanged(ArrayList<WallpaperCatagoryPojo> arrayList) {
+            public void onChanged(ArrayList<WallpaperCategoryPojo> arrayList) {
                 categoryName = new ArrayList<>();
                 int i;
                 for( i=0;i<arrayList.size()-1;i++)
@@ -80,7 +85,7 @@ public class FragmentAutoChanger extends Fragment {
 
             }
         };
-        viewModel.getLiveDataCatagories().observe(this,observer);
+        ((MainViewModel) viewModel).getLiveDataCatagories().observe(this,observer);
 
         spinnerFirstDigit.setAdapter(ArrayAdapter.createFromResource(getActivity().getApplicationContext(),R.array.numbers_array,R.layout.simple_spinner));
 
@@ -88,6 +93,8 @@ public class FragmentAutoChanger extends Fragment {
         spinnerTimeFormat.setAdapter(ArrayAdapter.createFromResource(getActivity().getApplicationContext(),R.array.time_format_array,R.layout.simple_spinner));
         if(isServiceRunning())
             switchStartSevice.setChecked(true);
+
+
 
         return view;
     }
@@ -109,12 +116,12 @@ public class FragmentAutoChanger extends Fragment {
                 firstDigit = Integer.parseInt(spinnerFirstDigit.getSelectedItem().toString());
                 try {
                     if(firstDigit==0 && timeFormat.equalsIgnoreCase("minutes")) {
-                        textView.setText("Time in seconds is not allowed,please select a number greater than zero.");
+                     //   textView.setText("Time in seconds is not allowed,please select a number greater than zero.");
                         switchStartSevice.setEnabled(false);
                     }
                     else {
                         switchStartSevice.setEnabled(true);
-                        textView.setText("Better to set duration greater than one hour.");
+                       // textView.setText("Better to set duration greater than one hour.");
                     }
 
 
@@ -192,6 +199,14 @@ public class FragmentAutoChanger extends Fragment {
                     }).start();
 
                 }
+            }
+        });
+        cardViewUnlockCraftify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.craft.craftifyswift"));
+                startActivity(intent);
+
             }
         });
 

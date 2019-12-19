@@ -2,21 +2,17 @@ package com.siddhant.craftifywallpapers.views.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,16 +21,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.siddhant.craftifywallpapers.R;
-import com.siddhant.craftifywallpapers.models.WallpaperCatagoryPojo;
+import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.views.ui.FragmentTrending;
 
 
 import java.util.ArrayList;
 
 public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<CatagoryRecyclerVIewAdapter.ViewHolder> {
-    ArrayList<WallpaperCatagoryPojo> arrayList ;
+    ArrayList<WallpaperCategoryPojo> arrayList ;
     FragmentManager fragmentManager ;
-    public CatagoryRecyclerVIewAdapter(Context context, FragmentManager fragmentManager, ArrayList<WallpaperCatagoryPojo> arrayList) {
+    public CatagoryRecyclerVIewAdapter(Context context, FragmentManager fragmentManager, ArrayList<WallpaperCategoryPojo> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
         this.fragmentManager = fragmentManager;

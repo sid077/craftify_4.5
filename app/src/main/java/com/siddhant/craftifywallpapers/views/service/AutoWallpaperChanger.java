@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -26,6 +27,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperApiResponsePojo;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
+import com.siddhant.craftifywallpapers.repositories.WallpaperApiService;
+import com.siddhant.craftifywallpapers.repositories.WallpaperApiServiceAutoChanger;
 import com.siddhant.craftifywallpapers.viewmodel.DownloadImage;
 import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
 import com.siddhant.craftifywallpapers.views.adapter.FavoriteRecyclerViewAdapter;
@@ -46,72 +49,49 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class AutoWallpaperChanger extends LifecycleService {
     public Timer timer = null;
     Handler handler = new Handler();
-    int id = 101;
-    public static  int i = 0,interval;
-    private ArrayList<String> url = new ArrayList<>();
-
-    MainViewModel viewModel ;
-    private Intent i1;
-    private String category;
-    private WallpaperApiResponsePojo responsePojo;
+    public static int i = 0, interval;
+    private WallpaperApiResponsePojo pojo;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
 
-
-
     }
-
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         timer.cancel();
-        Toast.makeText(this, "Craftify wallpapers:stopping auto wallpaper changer...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "service stopped successfully", Toast.LENGTH_SHORT).show();
+
 
     }
 
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent,flags,startId);
-        interval = intent.getIntExtra("interval",1);
-        category = intent.getStringExtra("category");
-        viewModel = new MainViewModel();
-
-       viewModel.loadTrending(category,null);
-        final Observer<WallpaperApiResponsePojo> responsePojoObserver = new Observer<WallpaperApiResponsePojo>() {
+        super.onStartCommand(intent, flags, startId);
+        interval = intent.getIntExtra("timeInMillis", 50000);
 
 
 
-            @Override
-            public void onChanged(WallpaperApiResponsePojo wallpaperApiResponsePojo) {
-                responsePojo = wallpaperApiResponsePojo;
-                if (timer != null)
-                    timer.cancel();
-                else
-                    timer = new Timer();
-                timer.scheduleAtFixedRate(new MyTimer(),0,interval);
 
-            }
-        };
-        viewModel.getLiveData().observe(this,responsePojoObserver);
-
-        i1 = intent;
-        int intervalInMillis;
-        intervalInMillis = interval;
-        String name = "SID" ;
+        String name = "SID";
         String CHANNEL_ID = getPackageName();
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,name,importance);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription("hello");
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
@@ -120,8 +100,8 @@ public class AutoWallpaperChanger extends LifecycleService {
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
 
-                .setContentText("Wallpaper will change after an interval of "+ TimeUnit.MILLISECONDS.toMinutes(interval) +" minutes.")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentText("Wallpaper will change after an interval of " + TimeUnit.MILLISECONDS.toMinutes(interval) + " minute(s)." )
+                .setSmallIcon(R.drawable.ic_menu_gallery)
                 .setContentIntent(pendingIntent)
                 .setColor(Color.BLACK)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -129,60 +109,69 @@ public class AutoWallpaperChanger extends LifecycleService {
                 .build();
         startForeground(1, notification);
 
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.pexels.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        WallpaperApiService wallpaperApiService = retrofit.create(WallpaperApiService.class);
+        Call<WallpaperApiResponsePojo> call = wallpaperApiService.getTrendingWallpapers("abstract");
 
+        call.enqueue(new Callback<WallpaperApiResponsePojo>() {
+            @Override
+            public void onResponse(Call<WallpaperApiResponsePojo> call, Response<WallpaperApiResponsePojo> response) {
+                String code = response.headers().get("X-Ratelimit-Remaining");
+                Log.i("Remaining requests ", code);
+                if (Integer.parseInt(code) <= 0) {
+                    return;
+                }
+                pojo = response.body();
 
+            }
 
+            @Override
+            public void onFailure(Call<WallpaperApiResponsePojo> call, Throwable t) {
+
+            }
+        });
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimer(), 0, interval);
 
 
         return START_NOT_STICKY;
     }
+
     class MyTimer extends TimerTask {
         @Override
         public void run() {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-
-                    try {
-
+                    if (pojo != null) {
                         WallpaperManager manager = WallpaperManager.getInstance(getApplicationContext());
-                        if(i!=40){
-                            int nos = new Random().nextInt(responsePojo.getWallpaperPojos().size());
-                            Bitmap wallpaper = new DownloadImage().execute(responsePojo.getWallpaperPojos().get(nos).getSrcUrl().getPortrait()).get();
+                        int nos = new Random().nextInt(pojo.getWallpaperPojos().size());
+                        Bitmap wallpaper = null;
+                        try {
+                            wallpaper = new DownloadImage().execute(pojo.getWallpaperPojos().get(nos).getSrcUrl().getPortrait()).get();
                             manager.setBitmap(wallpaper);
                             wallpaper.recycle();
                             manager.forgetLoadedWallpaper();
-                            i++;
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        else {
-                            i=0;
+                        catch (Exception ex){
+                            ex.printStackTrace();
                         }
-
-                    }  catch (IOException e) {
-                        Toast.makeText(getApplicationContext(),"Unable to start service!",Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                        stopSelf();
-
-                    } catch (InterruptedException e) {
-                        Toast.makeText(getApplicationContext(),"Unable to start service!",Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                        stopSelf();
-
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),"Unable to start service!",Toast.LENGTH_SHORT).show();
 
                     }
-                    catch (NullPointerException e){
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),"Unable to start service!",Toast.LENGTH_SHORT).show();
-                        stopSelf();
 
-                    }
+//
                 }
             });
         }
+
+
     }
-
-
 }

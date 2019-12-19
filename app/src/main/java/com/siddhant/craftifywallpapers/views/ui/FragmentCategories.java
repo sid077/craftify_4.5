@@ -9,16 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 import com.siddhant.craftifywallpapers.R;
-import com.siddhant.craftifywallpapers.models.WallpaperCatagoryPojo;
+import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
 import com.siddhant.craftifywallpapers.views.adapter.CatagoryRecyclerVIewAdapter;
 
@@ -53,9 +51,9 @@ public class FragmentCategories extends Fragment {
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.fetchCategory();
-       final Observer<ArrayList<WallpaperCatagoryPojo>> observer = new Observer<ArrayList<WallpaperCatagoryPojo>>() {
+       final Observer<ArrayList<WallpaperCategoryPojo>> observer = new Observer<ArrayList<WallpaperCategoryPojo>>() {
             @Override
-            public void onChanged(ArrayList<WallpaperCatagoryPojo> arrayList) {
+            public void onChanged(ArrayList<WallpaperCategoryPojo> arrayList) {
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                 recyclerView.setAdapter(new CatagoryRecyclerVIewAdapter(getActivity().getApplicationContext(),getFragmentManager(),arrayList));
 

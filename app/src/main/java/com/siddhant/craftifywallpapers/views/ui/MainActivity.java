@@ -3,20 +3,22 @@ package com.siddhant.craftifywallpapers.views.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.animation.Animator;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
@@ -25,8 +27,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String ADMOB_ID="ca-app-pub-2724635946881674~2482573510";
     private SharedPreferences preferences;
     private ConstraintLayout constraintLayout;
+    private ExtendedFloatingActionButton fabChangeThemen;
 
 
     public AppDatabase getDatabase() {
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayoutMain = findViewById(R.id.tabLayoutMain);
         viewPagerMain = findViewById(R.id.viewPagerMain);
         checkboxNav = findViewById(R.id.checkboxNav);
+        fabChangeThemen = findViewById(R.id.fabChTheme);
 
 
         checkboxChangeTheme = findViewById(R.id.checkBoxchangeTheme);
@@ -185,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(tab.getPosition()==1)
                     tab.setIcon(R.drawable.ic_favorite_black_tablayout_24dp);
                 else
-                    tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_black_tab_layout_24dp);
+                    tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
             }
 
             @Override
@@ -241,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     });
 
-        searchView = findViewById(R.id.searchView);
+        searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(true);
 
@@ -262,7 +265,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return newText.length() > 0;
+                if (newText.length() > 0) {
+
+
+                    return true;
+                } else {
+
+                    return false;
+                }
             }
 
         });
@@ -293,12 +303,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     isNightModeEnabled = true;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
 //                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 else{
                     isNightModeEnabled = false;
+
                     preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -308,7 +320,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+    fabChangeThemen.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(isNightModeEnabled){
+                fabChangeThemen.setText("Light ");
+                fabChangeThemen.extend();
+                fabChangeThemen.setIcon(getResources().getDrawable(R.drawable.ic_wb_sunny_black_24dp));
+                fabChangeThemen.animate().rotationBy(0).setDuration(500).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
 
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        checkboxChangeTheme.setChecked(false);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+            }
+            else {
+                fabChangeThemen.setText("Dark");
+                fabChangeThemen.extend();
+                fabChangeThemen.setIcon(getResources().getDrawable(R.drawable.ic_brightness_3_black_24dp));
+                fabChangeThemen.animate().rotationBy(0).setDuration(500).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        checkboxChangeTheme.setChecked(true);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+            }
+        }
+    });
 
 
     }

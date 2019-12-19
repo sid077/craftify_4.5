@@ -9,18 +9,36 @@
     android:orientation="vertical"
     tools:context=".views.ui.MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabChTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:ellipsize="middle"
+        app:backgroundTint="@color/colorPrimary"
+        app:icon="@drawable/ic_format_paint_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayoutMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="1dp" />
 
-        android:layout_marginEnd="8dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:shape="ring"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/colorAccent"
+        app:strokeColor="@color/colorAccent">
 
         <CheckBox
             android:id="@+id/checkBoxchangeTheme"
@@ -28,41 +46,43 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:button="@drawable/theme_selector" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewChangeTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:shape="ring"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <CheckBox
             android:id="@+id/checkboxNav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="8dp"
-            android:button="@drawable/nav_drawer" />
-    </androidx.cardview.widget.CardView>
+            android:button="@drawable/nav_drawer"
+            android:foregroundGravity="center_vertical|center_horizontal"
+            android:gravity="center_horizontal|center_vertical" />
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:onClick="openPexelSite"
         android:src="@drawable/pexels_black"
-        app:backgroundTint="#FFFFFFFF"
+        app:backgroundTint="@color/colorAccentDark"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayoutMain"
+        app:layout_constraintBottom_toTopOf="@+id/fabChTheme"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.viewpager.widget.ViewPager
@@ -87,60 +107,47 @@
         android:layout_width="0dp"
 
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1.75"
+        android:background="@color/colorPrimary"
         android:duplicateParentState="false"
         android:layoutMode="opticalBounds"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
         app:layout_constraintStart_toStartOf="parent"
         app:tabGravity="fill"
+        app:tabIconTint="@color/colorAccent"
         app:tabIconTintMode="src_atop"
+        app:tabIndicatorColor="@color/colorAccent"
         app:tabMode="fixed"
         app:tabPaddingEnd="0dp"
         app:tabPaddingStart="0dp"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="411dp">
+        app:tabTextColor="@color/colorAccent">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_view_quilt_black_24dp"
-            android:importantForAccessibility="yes"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="739dp" />
+            android:icon="@drawable/ic_view_quilt_24dp"
+            android:importantForAccessibility="yes" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_favorite_border_black_tab_layout_24dp"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="137dp"
-            tools:layout_editor_absoluteY="739dp" />
+            android:icon="@drawable/ic_favorite_border_tab_layout_24dp" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_vibration_black_24dp"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="274dp"
-            tools:layout_editor_absoluteY="739dp" />
+            android:icon="@drawable/ic_vibration_24dp" />
     </com.google.android.material.tabs.TabLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
         android:foregroundGravity="bottom"
         android:gravity="bottom"
         android:orientation="horizontal"
@@ -162,13 +169,14 @@
 
             <SearchView
                 android:id="@+id/searchView"
+                style="@android:style/Widget.Material.SearchView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:maxWidth="250dp"
-                app:searchHintIcon="@drawable/ic_search_black_24dp" />
-            <!--android:scrollbarThumbHorizontal="@drawable/ic_search_black_24dp"-->
-            <!--android:scrollbarThumbVertical="@drawable/ic_search_black_24dp"-->
+                app:searchHintIcon="@drawable/ic_search_24dp" />
+            <!--android:scrollbarThumbHorizontal="@drawable/ic_search_24dp"-->
+            <!--android:scrollbarThumbVertical="@drawable/ic_search_24dp"-->
 
 
         </androidx.cardview.widget.CardView>

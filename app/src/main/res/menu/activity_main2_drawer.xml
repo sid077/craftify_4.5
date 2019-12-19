@@ -37,7 +37,7 @@
                 android:title="Contact us"
                 />
             <item android:id="@+id/privacy_policy"
-                android:icon="@drawable/ic_lock_black_24dp"
+                android:icon="@drawable/ic_screen_lock_portrait_24dp"
                 android:title="Privacy policy"
                 />
             <item
