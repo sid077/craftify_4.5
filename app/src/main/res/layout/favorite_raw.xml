@@ -13,19 +13,20 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="4dp">
+        app:cardBackgroundColor="@color/cardPrimary"
+        app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageViewWallFavMain"
                 android:layout_width="0dp"
-                android:layout_height="250dp"
+                android:layout_height="0dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -35,23 +36,25 @@
 
             <ImageButton
                 android:id="@+id/imageButtonInfoFavMain"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ic_info_black_24dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
                 android:id="@+id/checkboxFavMain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:button="@drawable/fav_selector"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewWallFavMain"
                 app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

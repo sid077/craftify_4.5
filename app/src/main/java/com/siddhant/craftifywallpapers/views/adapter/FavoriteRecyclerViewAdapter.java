@@ -57,6 +57,7 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
         if(MainActivity.isNightModeEnabled)
             holder.imageButtonInfo.setImageResource(R.drawable.ic_info_white_24dp);
         holder.checkbox.setChecked(true);
+
         Glide.with(context).load(wallpaperFavPojoList.get(position).getPortraitUrl()).thumbnail(0.1f).into(holder.imageViewWallpaper);
         holder.imageViewWallpaper.setOnClickListener(new View.OnClickListener() {
             @Override

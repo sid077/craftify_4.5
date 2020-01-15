@@ -13,4 +13,7 @@
     <color name="colorSecondaryDark">#33434B</color>
     <color name="colorTextSecondary">#99000000</color>
     <color name="colorTextPrimary">#CBFFFFFF</color>
+    <color name="cardPrimary">#CDFFFFFF</color>
+    <color name="colorNavDrawer">#FFFFFF</color>
+    <color name="design_default_color_primary">#263238</color>
 </resources>

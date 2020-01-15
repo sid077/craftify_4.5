@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,8 +17,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
@@ -27,16 +26,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -57,15 +55,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentTrending fragmentTrending;
     private SearchRecentSuggestions suggestions;
     private SearchManager searchManager;
-    LinearLayout mLinearLayout;
-    private AppBarLayout appBarLayout;
-    private FloatingActionButton fabChangeTheme,fabNavDrawer,favSearch;
-    private Switch switchChangeTheme;
+   private FloatingActionButton fabPexels;
     public static boolean isNightModeEnabled;
     private static final String ADMOB_ID="ca-app-pub-2724635946881674~2482573510";
     private SharedPreferences preferences;
     private ConstraintLayout constraintLayout;
     private ExtendedFloatingActionButton fabChangeThemen;
+    public TextView textViewTitle;
 
 
     public AppDatabase getDatabase() {
@@ -94,58 +90,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPagerMain = findViewById(R.id.viewPagerMain);
         checkboxNav = findViewById(R.id.checkboxNav);
         fabChangeThemen = findViewById(R.id.fabChTheme);
-
+        textViewTitle = findViewById(R.id.textViewTitle);
+        fabPexels = findViewById(R.id.fabPexels);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
 
         checkboxChangeTheme = findViewById(R.id.checkBoxchangeTheme);
 
-//        fabChangeTheme = findViewById(R.id.fabChangeTheme);
-//        fabNavDrawer = findViewById(R.id.fabNavDrawer);
-//        favSearch = findViewById(R.id.fabSearch);
+//
         constraintLayout = findViewById(R.id.linearLayout2);
 
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
         final NavigationView navigationView = findViewById(R.id.nav_view_main);
-//        fabChangeTheme.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
-//                CardView cardView = findViewById(R.id.cardViewChangeTheme);
-//                cardView.startAnimation(animation);
-//                if(!isNightModeEnabled) {
-//                    isNightModeEnabled = true;
-//                    preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    fabChangeTheme.setImageResource(R.drawable.ic_brightness_3_black_24dp);
-//                }
-////                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                else{
-//                    isNightModeEnabled = false;
-//                    preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    fabChangeTheme.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
-////                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                }
-//            }
-//        });
-//        fabNavDrawer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!drawer.isDrawerOpen(Gravity.LEFT)) {
-//                    drawer.openDrawer(Gravity.LEFT);
 //
-//                }
-//                else
-//                    drawer.closeDrawer(Gravity.LEFT);
-//            }
-//        });
-
         navigationView.setNavigationItemSelectedListener(this);
-//        if(AppCompatDelegate.g==AppCompatDelegate.MODE_NIGHT_NO){
-//            checkboxChangeTheme.setChecked(true);
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            int x= 0;
-//        }
+//
 
 
 
@@ -176,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        PagerAdapter pagerAdapter = new ViewPagerAdapterMain(getSupportFragmentManager());
+        PagerAdapter pagerAdapter = new ViewPagerAdapterMain(getSupportFragmentManager(),this);
         viewPagerMain.setAdapter(pagerAdapter);
         viewPagerMain.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutMain));
 
@@ -185,11 +146,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPagerMain.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()==1)
-                    tab.setIcon(R.drawable.ic_favorite_black_tablayout_24dp);
-                else
-                    tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
+
+
+                 switch (tab.getPosition()){
+                     case 0:
+                         textViewTitle.setText("Gallery");
+                         tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
+                         break;
+                     case 1:
+                         textViewTitle.setText("Favourites");
+                         tab.setIcon(R.drawable.ic_favorite_black_tablayout_24dp);
+                         break;
+                     case 2:
+                         textViewTitle.setText("Automatic Wallpapers");
+                         tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
+                         break;
+                     default:
+                         textViewTitle.setText("Craftify");
+                         tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
+                 }
             }
+
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -306,6 +283,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    fabPexels.setImageResource(R.drawable.pexels_white);
+
                 }
 //                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 else{
@@ -313,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     preferences.edit().putBoolean("NIGHT_MODE", isNightModeEnabled).commit();
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    fabPexels.setImageResource(R.drawable.pexels_black);
 //                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
 
@@ -377,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     });
-
+        ;
 
     }
     public void changeTheme(){

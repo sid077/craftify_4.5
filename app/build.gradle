@@ -7,8 +7,8 @@ android {
         applicationId "com.siddhant.craftifywallpapers"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 24
-        versionName "4.6.2"
+        versionCode 25
+        versionName "4.6.3"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -61,6 +61,7 @@ dependencies {
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
     implementation 'com.google.android.gms:play-services-ads:17.0.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:cardview-v7:28.0.0'
 
 
 }

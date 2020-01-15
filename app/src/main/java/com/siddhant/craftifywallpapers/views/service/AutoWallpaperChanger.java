@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.app.WallpaperManager;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
@@ -56,10 +57,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AutoWallpaperChanger extends LifecycleService {
-    public Timer timer = null;
-    Handler handler = new Handler();
-    public static int i = 0, interval;
+//    public Timer timer = null;
+//    Handler handler = new Handler();
+//    public static int i = 0, interval;
     private WallpaperApiResponsePojo pojo;
+    private ScreenOnReciever reciever;
 
     @Override
     public void onCreate() {
@@ -72,8 +74,10 @@ public class AutoWallpaperChanger extends LifecycleService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
-        Toast.makeText(this, "service stopped successfully", Toast.LENGTH_SHORT).show();
+        if(reciever!=null);
+            unregisterReceiver(reciever);
+//        timer.cancel();
+//        Toast.makeText(this, "service stopped successfully", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -82,7 +86,7 @@ public class AutoWallpaperChanger extends LifecycleService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        interval = intent.getIntExtra("timeInMillis", 50000);
+      //  interval = intent.getIntExtra("timeInMillis", 50000);
 
 
 
@@ -100,7 +104,7 @@ public class AutoWallpaperChanger extends LifecycleService {
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
 
-                .setContentText("Wallpaper will change after an interval of " + TimeUnit.MILLISECONDS.toMinutes(interval) + " minute(s)." )
+                .setContentText("Wallpaper will change on phone unlock every time " )
                 .setSmallIcon(R.drawable.ic_menu_gallery)
                 .setContentIntent(pendingIntent)
                 .setColor(Color.BLACK)
@@ -108,70 +112,75 @@ public class AutoWallpaperChanger extends LifecycleService {
 
                 .build();
         startForeground(1, notification);
+        reciever = new ScreenOnReciever();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        registerReceiver(reciever,filter);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.pexels.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        WallpaperApiService wallpaperApiService = retrofit.create(WallpaperApiService.class);
-        Call<WallpaperApiResponsePojo> call = wallpaperApiService.getTrendingWallpapers("abstract");
-
-        call.enqueue(new Callback<WallpaperApiResponsePojo>() {
-            @Override
-            public void onResponse(Call<WallpaperApiResponsePojo> call, Response<WallpaperApiResponsePojo> response) {
-                String code = response.headers().get("X-Ratelimit-Remaining");
-                Log.i("Remaining requests ", code);
-                if (Integer.parseInt(code) <= 0) {
-                    return;
-                }
-                pojo = response.body();
-
-            }
-
-            @Override
-            public void onFailure(Call<WallpaperApiResponsePojo> call, Throwable t) {
-
-            }
-        });
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimer(), 0, interval);
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.pexels.com")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        WallpaperApiService wallpaperApiService = retrofit.create(WallpaperApiService.class);
+//        Call<WallpaperApiResponsePojo> call = wallpaperApiService.getTrendingWallpapers("abstract");
+//
+//        call.enqueue(new Callback<WallpaperApiResponsePojo>() {
+//            @Override
+//            public void onResponse(Call<WallpaperApiResponsePojo> call, Response<WallpaperApiResponsePojo> response) {
+//                String code = response.headers().get("X-Ratelimit-Remaining");
+//                Log.i("Remaining requests ", code);
+//                if (Integer.parseInt(code) <= 0) {
+//                    return;
+//                }
+//                pojo = response.body();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<WallpaperApiResponsePojo> call, Throwable t) {
+//
+//            }
+//        });
+//        timer = new Timer();
+//        timer.scheduleAtFixedRate(new MyTimer(), 0, interval);
 
 
         return START_NOT_STICKY;
     }
 
-    class MyTimer extends TimerTask {
-        @Override
-        public void run() {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (pojo != null) {
-                        WallpaperManager manager = WallpaperManager.getInstance(getApplicationContext());
-                        int nos = new Random().nextInt(pojo.getWallpaperPojos().size());
-                        Bitmap wallpaper = null;
-                        try {
-                            wallpaper = new DownloadImage().execute(pojo.getWallpaperPojos().get(nos).getSrcUrl().getPortrait()).get();
-                            manager.setBitmap(wallpaper);
-                            wallpaper.recycle();
-                            manager.forgetLoadedWallpaper();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        catch (Exception ex){
-                            ex.printStackTrace();
-                        }
-
-                    }
-
+//    class MyTimer extends TimerTask {
+//        @Override
+//        public void run() {
+//            handler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (pojo != null) {
+//                        WallpaperManager manager = WallpaperManager.getInstance(getApplicationContext());
+//                        int nos = new Random().nextInt(pojo.getWallpaperPojos().size());
+//                        Bitmap wallpaper = null;
+//                        try {
+//                            wallpaper = new DownloadImage().execute(pojo.getWallpaperPojos().get(nos).getSrcUrl().getPortrait()).get();
+//                            manager.setBitmap(wallpaper);
+//                            wallpaper.recycle();
+//                            manager.forgetLoadedWallpaper();
+//                        } catch (ExecutionException e) {
+//                            e.printStackTrace();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        catch (Exception ex){
+//                            ex.printStackTrace();
+//                        }
 //
-                }
-            });
-        }
+//                    }
+//
+////
+//                }
+//            });
+//        }
 
 
     }
-}
+
+

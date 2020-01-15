@@ -9,6 +9,123 @@
     android:orientation="vertical"
     tools:context=".views.ui.MainActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPexels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:onClick="openPexelSite"
+        app:backgroundTint="#FFFFFF"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fabChTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/pexels" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerMain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+
+        app:layout_constraintBottom_toTopOf="@+id/tabLayoutMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_conversion_absoluteHeight="731dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded"
+        android:minHeight="56dp"
+        android:shape="ring"
+        android:visibility="visible"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/rounded">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <CheckBox
+                    android:id="@+id/checkboxNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:button="@drawable/nav_drawer"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:buttonTint="@color/colorAccent" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/aclonica"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Craftify"
+                android:textAlignment="gravity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/searchView"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:maxWidth="250dp"
+
+                android:searchIcon="@drawable/ic_search_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:searchHintIcon="@drawable/ic_search_24dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--android:scrollbarThumbHorizontal="@drawable/ic_search_24dp"-->
+        <!--android:scrollbarThumbVertical="@drawable/ic_search_24dp"-->
+
+
+    </androidx.cardview.widget.CardView>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabChTheme"
         android:layout_width="wrap_content"
@@ -19,10 +136,11 @@
         android:ellipsize="middle"
         app:backgroundTint="@color/colorPrimary"
         app:icon="@drawable/ic_format_paint_24dp"
+        app:iconTint="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/tabLayoutMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:strokeColor="@color/colorAccent"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="0dp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView3"
@@ -35,7 +153,7 @@
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintBottom_toTopOf="@+id/fabPexels"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/colorAccent"
         app:strokeColor="@color/colorAccent">
@@ -54,60 +172,20 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <CheckBox
-            android:id="@+id/checkboxNav"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_margin="8dp"
-            android:button="@drawable/nav_drawer"
-            android:foregroundGravity="center_vertical|center_horizontal"
-            android:gravity="center_horizontal|center_vertical" />
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorPrimary"
-        android:onClick="openPexelSite"
-        android:src="@drawable/pexels_black"
-        app:backgroundTint="@color/colorAccentDark"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/fabChTheme"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPagerMain"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="visible"
-
-        app:layout_constraintBottom_toTopOf="@+id/tabLayoutMain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_conversion_absoluteHeight="731dp"
-        tools:layout_conversion_absoluteWidth="411dp">
-
-    </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutMain"
         android:layout_width="0dp"
 
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rounded_inverted"
         android:duplicateParentState="false"
         android:layoutMode="opticalBounds"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
@@ -156,30 +234,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:shape="ring"
-            android:visibility="visible"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="0dp">
-
-
-            <SearchView
-                android:id="@+id/searchView"
-                style="@android:style/Widget.Material.SearchView"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:maxWidth="250dp"
-                app:searchHintIcon="@drawable/ic_search_24dp" />
-            <!--android:scrollbarThumbHorizontal="@drawable/ic_search_24dp"-->
-            <!--android:scrollbarThumbVertical="@drawable/ic_search_24dp"-->
-
-
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

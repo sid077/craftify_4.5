@@ -32,6 +32,11 @@ public class FragmentTrending extends BottomSheetDialogFragment {
     private String query;
     private MainActivity mainActivity;
     private ProgressBar progressBar;
+    private GridLayoutManager layoutManager;
+    private int pastVisibleItem;
+    private int visibleItemCount;
+    private int totalItemCount;
+    private boolean loading= true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,15 +83,36 @@ public class FragmentTrending extends BottomSheetDialogFragment {
             public void onChanged(WallpaperApiResponsePojo wallpaperApiResponsePojo) {
 
                 recyclerView.setAdapter(new TrendingRecyclerViewAdapter(getActivity().getApplicationContext(),getFragmentManager(),wallpaperApiResponsePojo,viewModel,mainActivity.getDatabase()));
-                recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(),2));
+                layoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
+                recyclerView.setLayoutManager(layoutManager);
             //    progressBar.setVisibility(View.GONE);
 
             }
 
         };
         viewModel.getLiveData().observe(this,responsePojoObserver);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
 
-
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                  if(dy>0){
+                      visibleItemCount = layoutManager.getChildCount();
+                      totalItemCount = layoutManager.getItemCount();
+                      pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition();
+                      if(loading){
+                          if(visibleItemCount+pastVisibleItem>=totalItemCount){
+                              loading = false;
+                              Log.d("now","load");
+                          }
+                      }
+                  }
+                }
+            });
         return root;
 
     }

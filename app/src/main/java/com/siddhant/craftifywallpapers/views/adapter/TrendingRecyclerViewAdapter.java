@@ -28,6 +28,7 @@ import com.siddhant.craftifywallpapers.views.ui.MainActivity;
 import com.siddhant.craftifywallpapers.views.ui.PreviewWallpaperActivity;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRecyclerViewAdapter.ViewHolder> {
@@ -46,6 +47,8 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<TrendingRe
         this.fragmentManager = fragmentManager;
         this.mainViewModel = mainViewModel;
         wallpaperFavPojoList = mainViewModel.getWallpaperFavLiveData().getValue();
+
+        Collections.sort(wallpaperApiResponsePojo.getWallpaperPojos());
         this.database = database;
 
         int x=0;

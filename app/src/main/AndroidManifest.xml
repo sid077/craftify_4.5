@@ -34,7 +34,17 @@
 
         <activity
             android:name=".views.ui.PreviewWallpaperActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            >
+            <intent-filter >
+                <action android:name="joinRequest"></action>
+                <category android:name="android.intent.category.DEFAULT">
+
+                </category>
+            </intent-filter>
+        </activity>
+
+
         <activity android:name=".views.ui.MainActivity">
             <intent-filter>
 

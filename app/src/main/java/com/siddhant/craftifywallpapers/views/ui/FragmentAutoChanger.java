@@ -1,8 +1,11 @@
 package com.siddhant.craftifywallpapers.views.ui;
 
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +27,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.material.snackbar.Snackbar;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
 import com.siddhant.craftifywallpapers.views.service.AutoWallpaperChanger;
+import com.siddhant.craftifywallpapers.views.service.ScreenOnReciever;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +49,7 @@ public class FragmentAutoChanger extends Fragment {
     private String category;
     private TextView textView;
     private Switch switchStartSevice;
+    private Switch aSwitch;
     private int processId;
     private AdView adViewBanner;
     private CardView cardViewUnlockCraftify;
@@ -57,6 +63,7 @@ public class FragmentAutoChanger extends Fragment {
         spinnerCatagories = view.findViewById(R.id.spinnerWallpaperCatagory);
         spinnerTimeFormat = view.findViewById(R.id.spinnerTimeFormat);
         cardViewUnlockCraftify = view.findViewById(R.id.cardViewUnlockCraftify);
+        aSwitch = view.findViewById(R.id.switchNew);
 
        // textView = view.findViewById(R.id.textViewPromtUserAuto);
         switchStartSevice = view.findViewById(R.id.switchStartServiceAuto);
@@ -66,7 +73,37 @@ public class FragmentAutoChanger extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         adViewBanner.loadAd(adRequest);
 
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Intent i = new Intent();
+//                    int timeInMillis= 1000;
+//                    i.putExtra("timeInMillis",timeInMillis);
+//                    i.putExtra("timeFormat",timeFormat);
+                i.setComponent(new ComponentName("com.siddhant.craftifywallpapers","com.siddhant.craftifywallpapers.views.service.AutoWallpaperChanger"));
+                if(isChecked){
+//                    ScreenOnReciever reciever = new ScreenOnReciever();
+//                    IntentFilter filter = new IntentFilter();
+//                    filter.addAction(Intent.ACTION_SCREEN_ON);
+//                    getActivity().registerReceiver(reciever,filter);
 
+                    if(i.getComponent()==null)
+                    {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.siddhant.craftifywallpapers")));
+                        Snackbar.make(getView(),"Please download our primary app",Snackbar.LENGTH_SHORT).show();
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        getActivity().startForegroundService(i);
+                    }else {
+                        getActivity().startService(i);
+                    }
+
+                }
+                else {
+                    getActivity().stopService(i);
+                }
+            }
+        });
 
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);

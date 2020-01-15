@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.views.ui.MainActivity;
+import com.siddhant.craftifywallpapers.views.ui.PreviewWallpaperActivity;
 
 public class NotificationService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
@@ -29,7 +31,21 @@ public class NotificationService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // [START_EXCLUDE]
+
+
+        String notificationType = remoteMessage.getData().get("type");
+        Intent intent = new Intent();
+        switch (notificationType){
+            case "joinRequest":
+                intent = new Intent(this, PreviewWallpaperActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                sendToJoinReqiest(remoteMessage,intent);
+                break;
+
+        }
+
+
+   // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages
         // are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data
@@ -162,4 +178,21 @@ public class NotificationService extends FirebaseMessagingService {
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
+    private void sendToJoinReqiest(RemoteMessage remoteMessage,Intent intent){
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher_foreground))/*Notification icon image*/
+                .setContentTitle(remoteMessage.getMessageType())
+                /*Notification with Image*/
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    }
+
 }

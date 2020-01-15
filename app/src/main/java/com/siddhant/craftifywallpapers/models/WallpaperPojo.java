@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class WallpaperPojo implements Serializable {
+public class WallpaperPojo implements Serializable,Comparable{
     @SerializedName("id")
     int id;
     @SerializedName("width")
@@ -83,4 +83,11 @@ public class WallpaperPojo implements Serializable {
     }
 
 
+    @Override
+    public int compareTo(Object o) {
+        if(getId()<((WallpaperPojo)o).getId())
+        return 1;
+        else
+            return 0;
+    }
 }

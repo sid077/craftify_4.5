@@ -483,7 +483,7 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Toast.makeText(getApplicationContext(),"Wallpaper Changed Successfully!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext()," Wallpaper Changed ",Toast.LENGTH_SHORT).show();
                                 progressBar.setProgress(100);
                                 if(interstitialAd.isLoaded())
                                     interstitialAd.show();

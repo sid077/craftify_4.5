@@ -63,11 +63,15 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
         @Override
         public void onResponse(Call<WallpaperApiResponsePojo> call, Response<WallpaperApiResponsePojo> response) {
            String code =  response.headers().get("X-Ratelimit-Remaining");
+
            Log.i("Remaining requests ",code);
            if(Integer.parseInt(code)<=0){
                return;
            }
+
             liveData.setValue(response.body());
+
+
            if(progressBar != null)
            progressBar.setVisibility(View.INVISIBLE);
             int cb=0;

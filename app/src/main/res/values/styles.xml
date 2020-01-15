@@ -1,7 +1,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="Theme.MaterialComponents.DayNight.NoActionBar." parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style  name="Theme.MaterialComponents.DayNight.NoActionBar." parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -10,7 +10,8 @@
         <item name="searchViewStyle">@style/SearchViewMy</item>
 
 
-    </style>
+
+    </style >
 
 <!--    <style name="Theme.NoActionBar">-->
 <!--        <item name="windowActionBar">false</item>-->
@@ -36,7 +37,7 @@
 
     </style>
 
-
-
-
 </resources>
+
+
+
