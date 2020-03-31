@@ -178,17 +178,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:adSize="BANNER"
+<!--            <com.google.android.gms.ads.AdView-->
+<!--                android:id="@+id/adView2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                app:adSize="BANNER"-->
 
-                app:adUnitId="@string/UNIT_ID_BANNER2" />
+<!--                app:adUnitId="@string/UNIT_ID_BANNER2" />-->
 
         </LinearLayout>
 

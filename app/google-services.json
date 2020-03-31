@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:217259688442:android:82e94d45a620b82e0ee443",
+        "android_client_info": {
+          "package_name": "com.craft.craftifyswift"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217259688442-c0smnu3bh5hnuqppvk6i1ptja71dt5n6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.craft.craftifyswift",
+            "certificate_hash": "1b5f627bb868c756e4dc77e2fcd958539191d114"
+          }
+        },
+        {
+          "client_id": "217259688442-8l9ho4omon2bpur5saj0brhdio65a2n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-3zVjV11ZpQB-yx8Q7lQ3G8HMC4bbqfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217259688442-8l9ho4omon2bpur5saj0brhdio65a2n1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:217259688442:android:07daf1ccc9d4728d",
         "android_client_info": {
           "package_name": "com.siddhant.craftifywallpapers"

@@ -16,4 +16,6 @@
     <color name="cardPrimary">#CDFFFFFF</color>
     <color name="colorNavDrawer">#FFFFFF</color>
     <color name="design_default_color_primary">#263238</color>
+    <color name="colorControlNormal">#FFFFFF</color>
+
 </resources>

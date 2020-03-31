@@ -21,7 +21,9 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Your Favorites will appear here"
         android:textAlignment="center"
@@ -31,6 +33,17 @@
         app:layout_constraintStart_toStartOf="@+id/recyclerViewFavorite"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:adSize="SMART_BANNER"-->
+
+<!--        app:adUnitId="ca-app-pub-2724635946881674/3390322897"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewFavorite"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFavorite"
         android:layout_width="0dp"
@@ -39,4 +52,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

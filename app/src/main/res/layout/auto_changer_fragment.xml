@@ -16,22 +16,27 @@
             android:orientation="vertical" >
 
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewSwitchAuto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_marginBottom="1dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/cardPrimary"
-                app:cardCornerRadius="0dp">
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:background="@color/cardPrimary"
                     android:orientation="vertical">
 
                     <Switch
@@ -54,17 +59,22 @@
                         android:id="@+id/switchNew"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Switch" />
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:buttonTint="@color/colorAccent"
+                        android:foregroundTint="@color/colorAccent"
+                        android:padding="8dp"
+                        android:text="Automatic Wallpapers"
+                        android:textColorHighlight="@color/colorAccent"
+                        android:textColorLink="@color/colorAccent"
+                        android:textCursorDrawable="@color/colorAccent"
+                        android:textOff="Automatic Wallpapers disabled"
+                        android:textOn="Automatic Wallpapers enabled"
+                        android:thumbTint="@color/colorAccent"
+                        android:trackTint="@color/colorSecondary" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewUnlockCraftify"
@@ -95,7 +105,7 @@
                         android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Unlock Craftify Swift "
+                        android:text="Unlock Craftify Swift for ad free experience"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF" />
 
@@ -222,7 +232,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Info"
+                        android:text=" Info"
                         android:textStyle="bold" />
 
                     <TextView
@@ -232,7 +242,7 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="•Unlock Craftify Swift to change wallpaper automatically after a duration."
+                        android:text="• Use this feature to set a new wallpaper every time you unlock your device."
                         android:textAlignment="viewStart" />
 
                     <TextView
@@ -242,7 +252,7 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="• Your device should be at least 50% Charged."
+                        android:text="• Your device should be at least 20% Charged."
                         android:textAlignment="viewStart" />
 
                     <TextView
@@ -252,7 +262,7 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="• Your device should be connected to the internet."
+                        android:text="• No need of internet, wallpapers will be taken from your favourites."
                         android:textAlignment="viewStart" />
 
                     <TextView
@@ -291,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Changing Lockscreen"
+                        android:text="  Lockscreen"
                         android:textStyle="bold" />
 
                     <TextView
@@ -301,22 +311,22 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Some customised UI may prevent lockscreen from changing." />
+                        android:text="• Some customised UI may prevent lockscreen from changing." />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:adSize="BANNER"
+<!--            <com.google.android.gms.ads.AdView-->
+<!--                android:id="@+id/adView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                app:adSize="SMART_BANNER"-->
 
-                app:adUnitId= "@string/UNIT_ID_BANNER"
-                  />
+<!--                app:adUnitId= "@string/UNIT_ID_BANNER"-->
+<!--                  />-->
 
 
         </LinearLayout>

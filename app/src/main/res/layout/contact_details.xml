@@ -73,6 +73,7 @@
                     android:id="@+id/tv"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:text="Developer :"
                     android:textColor="@color/colorSecondary" />
 
@@ -80,6 +81,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:text="Siddhant Dubey"
                     android:textColor="@color/colorSecondary" />
 
@@ -97,6 +99,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:text="Wallpapers by :"
                     android:textColor="@color/colorSecondary" />
 
@@ -104,6 +107,7 @@
 
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:text="Pexels"
                     android:textColor="@color/colorSecondary" />
 
@@ -111,6 +115,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:autoLink="web"
                     android:text="www.pexels.com"
                     android:textColor="@color/colorSecondary" />
@@ -129,6 +134,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:text="E-mail : "
                     android:textColor="@color/colorSecondary" />
 
@@ -136,6 +142,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:autoLink="email"
                     android:text="siddhant.d777@gmail.com"
                     android:textColor="@color/colorSecondary" />

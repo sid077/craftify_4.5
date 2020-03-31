@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.siddhant.craftifywallpapers">
+    package="com.craft.craftifyswift">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
-        <activity android:name=".views.ui.WelcomeActivity">
+        <activity android:name="com.craft.craftifyswift.views.ui.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -33,7 +33,7 @@
             android:value="ca-app-pub-2724635946881674~2482573510" />
 
         <activity
-            android:name=".views.ui.PreviewWallpaperActivity"
+            android:name="com.craft.craftifyswift.views.ui.PreviewWallpaperActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             >
             <intent-filter >
@@ -45,7 +45,7 @@
         </activity>
 
 
-        <activity android:name=".views.ui.MainActivity">
+        <activity android:name="com.craft.craftifyswift.views.ui.MainActivity">
             <intent-filter>
 
 
@@ -56,14 +56,14 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <service android:name=".views.service.NotificationService">
+        <service android:name="com.craft.craftifyswift.views.service.NotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <service
-            android:name=".views.service.AutoWallpaperChanger"
+            android:name="com.craft.craftifyswift.views.service.AutoWallpaperChanger"
 
             android:exported="true"
 
@@ -74,8 +74,8 @@
         </service>
 
         <provider
-            android:name=".views.ui.SuggestionProvider"
-            android:authorities="com.siddhant.cratifywallpapers.view.ui.SuggestionProvider" />
+            android:name="com.craft.craftifyswift.views.ui.SuggestionProvider"
+            android:authorities="cratifywallpapers.view.ui.SuggestionProvider" />
 
         <meta-data
             android:name="preloaded_fonts"

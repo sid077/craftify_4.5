@@ -13,6 +13,10 @@
         <item name="android:colorLongPressedHighlight">@color/colorAccent</item>
         <item name="android:colorFocusedHighlight">@color/colorAccent</item>
         <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:colorControlActivated">@color/colorAccent</item>
+        <item name="android:colorControlHighlight">@color/colorAccent</item>
 
     </style>
 </resources>
