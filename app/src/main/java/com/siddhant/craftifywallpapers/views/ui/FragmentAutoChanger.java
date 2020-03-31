@@ -25,12 +25,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.material.snackbar.Snackbar;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
+import com.siddhant.craftifywallpapers.views.adapter.FavoriteRecyclerViewAdapter;
 import com.siddhant.craftifywallpapers.views.service.AutoWallpaperChanger;
 import com.siddhant.craftifywallpapers.views.service.ScreenOnReciever;
 
@@ -53,7 +57,8 @@ public class FragmentAutoChanger extends Fragment {
     private int processId;
     private AdView adViewBanner;
     private CardView cardViewUnlockCraftify;
-
+    private InterstitialAd interstitialAd;
+    private static final String INTERSTITIAL_ID = "ca-app-pub-2724635946881674/5001333401";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,19 +74,41 @@ public class FragmentAutoChanger extends Fragment {
         switchStartSevice = view.findViewById(R.id.switchStartServiceAuto);
         adViewBanner = view.findViewById(R.id.adView);
         mainActivity = (MainActivity) getActivity();
+        if(isServiceRunning()){
+            aSwitch.setChecked(true);
+        }
+        interstitialAd = new InterstitialAd(getActivity().getApplicationContext());
+        interstitialAd.setAdUnitId(INTERSTITIAL_ID);
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adViewBanner.loadAd(adRequest);
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
 
+        });
+
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adViewBanner.loadAd(adRequest);
+//        rewardedAd = new RewardedAd(this,
+//                "ca-app-pub-3940256099942544/5224354917");
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!FavoriteRecyclerViewAdapter.hasFav){
+                    Toast.makeText(getActivity().getApplicationContext(),"It seems you have no wallpapers as favourites",Toast.LENGTH_LONG).show();
+                    aSwitch.setChecked(false);
+                    return;
+                }
+
                 Intent i = new Intent();
 //                    int timeInMillis= 1000;
 //                    i.putExtra("timeInMillis",timeInMillis);
 //                    i.putExtra("timeFormat",timeFormat);
                 i.setComponent(new ComponentName("com.siddhant.craftifywallpapers","com.siddhant.craftifywallpapers.views.service.AutoWallpaperChanger"));
                 if(isChecked){
+                    aSwitch.setText("Automatic Wallpapers enabled");
 //                    ScreenOnReciever reciever = new ScreenOnReciever();
 //                    IntentFilter filter = new IntentFilter();
 //                    filter.addAction(Intent.ACTION_SCREEN_ON);
@@ -93,14 +120,28 @@ public class FragmentAutoChanger extends Fragment {
                         Snackbar.make(getView(),"Please download our primary app",Snackbar.LENGTH_SHORT).show();
                     }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Snackbar.make(getView(),"Automatic Wallpaper changer enabled",Snackbar.LENGTH_SHORT).show();
+                        if(interstitialAd.isLoaded())
+                            interstitialAd.show();
                         getActivity().startForegroundService(i);
+
                     }else {
                         getActivity().startService(i);
+                        if(interstitialAd.isLoaded())
+                            interstitialAd.show();
+                        Snackbar.make(getView(),"Automatic Wallpaper changer enabled",Snackbar.LENGTH_SHORT).show();
                     }
 
                 }
                 else {
+                    aSwitch.setText("Automatic Wallpapers disabled");
                     getActivity().stopService(i);
+                    if(interstitialAd.isLoaded())
+                        interstitialAd.show();
+                    Snackbar.make(getView(),"Automatic Wallpaper changer disabled",Snackbar.LENGTH_SHORT).show();
+
+
+
                 }
             }
         });

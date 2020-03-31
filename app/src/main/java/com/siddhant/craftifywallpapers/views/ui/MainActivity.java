@@ -178,13 +178,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        viewPagerMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"vp clicked",Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
 
 

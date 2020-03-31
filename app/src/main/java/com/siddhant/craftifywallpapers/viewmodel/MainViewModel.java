@@ -28,6 +28,7 @@ import com.siddhant.craftifywallpapers.repositories.WallpaperApiService;
 import com.siddhant.craftifywallpapers.views.ui.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -98,8 +99,11 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
                 for(DataSnapshot d:dataSnapshot.getChildren()){
                     arrayListCategories.add( d.getValue(WallpaperCategoryPojo.class));
 
+
                 }
+                Collections.sort(arrayListCategories,WallpaperCategoryPojo.categoryPojoComparator);
                 liveDataCatagories.setValue(arrayListCategories);
+
             }
 
             @Override

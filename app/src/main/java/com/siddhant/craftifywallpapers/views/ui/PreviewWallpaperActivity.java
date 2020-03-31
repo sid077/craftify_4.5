@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 
+import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -21,6 +22,8 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperPojo;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
@@ -215,7 +218,8 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getApplicationContext(),"Lockscreen changed",Toast.LENGTH_LONG).show();
+                           // Snackbar.make(((Activity) getApplicationContext()).findViewById(android.R.id.content),"Lock screen changed", Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Lock screen changed",Toast.LENGTH_LONG).show();
                             progressBar.setProgress(100);
 
                             if(interstitialAd.isLoaded())
@@ -339,7 +343,7 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Toast.makeText(getApplicationContext(),"Wallpaper Changed Successfully!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Home screen changed ",Toast.LENGTH_SHORT).show();
                                 progressBar.setProgress(100);
                                 if(interstitialAd.isLoaded())
                                     interstitialAd.show();
@@ -410,7 +414,7 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Toast.makeText(getApplicationContext(),"Wallpaper Changed Successfully!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Home screen changed ",Toast.LENGTH_SHORT).show();
                                 progressBar.setProgress(100);
                                 if(interstitialAd.isLoaded())
                                     interstitialAd.show();
@@ -483,7 +487,7 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Toast.makeText(getApplicationContext()," Wallpaper Changed ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Home screen changed ",Toast.LENGTH_SHORT).show();
                                 progressBar.setProgress(100);
                                 if(interstitialAd.isLoaded())
                                     interstitialAd.show();

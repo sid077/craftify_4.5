@@ -49,6 +49,7 @@ int x=0;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                        // viewModel.setWallpaperFavLiveData();
                         Observer<List<WallpaperFavPojo>> wallpaperFavPojoObserver = new Observer<List<WallpaperFavPojo>>() {
                             @Override
@@ -61,7 +62,7 @@ int x=0;
 
                             }
                         };
-                     viewModel.getWallpaperFavLiveData().observe(getActivity(),wallpaperFavPojoObserver);
+                     viewModel.getWallpaperFavLiveData().observe(FragmentFavourites.this,wallpaperFavPojoObserver);
                     }
                 });
 

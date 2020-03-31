@@ -16,7 +16,7 @@ AppDatabase getDatabaseInstance(Context context);
     void performInsertionFavDb(WallpaperFavPojo wallpaperFavPojo, AppDatabase appDatabase);
 
     void performDeletion(WallpaperFavPojo favPojo, AppDatabase db);
-     void setAllFav(AppDatabase appDatabase);
+   void setAllFav(AppDatabase appDatabase);
      void closeDatabase(AppDatabase appDatabase);
 
     boolean searchForObject(int id, List<WallpaperFavPojo> wallpaperFavPojoList);

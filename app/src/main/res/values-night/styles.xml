@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="android:colorControlHighlight">@color/colorControlNormal</item>
 
 
 

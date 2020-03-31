@@ -48,4 +48,8 @@
     <string name="UNIT_ID_BANNER2">ca-app-pub-2724635946881674/7276477451</string>
     <string name="TEST_UNIT_INTERSTITIAL">ca-app-pub-3940256099942544/1033173712</string>
     <string name="UNIT_INTERSTITIAL">ca-app-pub-2724635946881674/2370892871</string>
+    <string name="NATIVE_1">ca-app-pub-2724635946881674/7224318519</string>
+    <string name="NATIVE_2">ca-app-pub-2724635946881674/7316543540</string>
+    <string name="NATIVE_3">ca-app-pub-2724635946881674/6235164658</string>
+    <string name="NATIVE_4">ca-app-pub-2724635946881674/7554865622</string>
 </resources>

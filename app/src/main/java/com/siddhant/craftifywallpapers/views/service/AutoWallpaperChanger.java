@@ -13,21 +13,25 @@ import android.graphics.Color;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.room.Room;
 
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperApiResponsePojo;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
+import com.siddhant.craftifywallpapers.repositories.AppDatabase;
 import com.siddhant.craftifywallpapers.repositories.WallpaperApiService;
 import com.siddhant.craftifywallpapers.repositories.WallpaperApiServiceAutoChanger;
 import com.siddhant.craftifywallpapers.viewmodel.DownloadImage;
@@ -62,10 +66,13 @@ public class AutoWallpaperChanger extends LifecycleService {
 //    public static int i = 0, interval;
     private WallpaperApiResponsePojo pojo;
     private ScreenOnReciever reciever;
+    private MutableLiveData<List<WallpaperFavPojo>> mutableLiveData = new MutableLiveData<>();
+    private AppDatabase db;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
 
 
     }
@@ -76,6 +83,8 @@ public class AutoWallpaperChanger extends LifecycleService {
         super.onDestroy();
         if(reciever!=null);
             unregisterReceiver(reciever);
+            if(db!=null)
+                db.close();
 //        timer.cancel();
 //        Toast.makeText(this, "service stopped successfully", Toast.LENGTH_SHORT).show();
 
@@ -87,6 +96,11 @@ public class AutoWallpaperChanger extends LifecycleService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
       //  interval = intent.getIntExtra("timeInMillis", 50000);
+
+        reciever = new ScreenOnReciever();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        registerReceiver(reciever,filter);
 
 
 
@@ -112,10 +126,7 @@ public class AutoWallpaperChanger extends LifecycleService {
 
                 .build();
         startForeground(1, notification);
-        reciever = new ScreenOnReciever();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        registerReceiver(reciever,filter);
+
 
 //        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.pexels.com")
 //                .addConverterFactory(GsonConverterFactory.create())

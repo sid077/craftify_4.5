@@ -34,6 +34,7 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
     MainViewModel mainViewModel;
     AppDatabase database;
     FragmentManager fragmentManager;
+    public static boolean hasFav ;
 
     public FavoriteRecyclerViewAdapter(Context context, List<WallpaperFavPojo> wallpaperFavPojoList, MainViewModel mainViewModel, AppDatabase database, FragmentManager fragmentManager) {
         this.context = context;
@@ -41,6 +42,10 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
         this.mainViewModel = mainViewModel;
         this.database = database;
         this.fragmentManager = fragmentManager;
+        if(wallpaperFavPojoList==null||wallpaperFavPojoList.size()==0)
+         hasFav = false;
+        else
+            hasFav = true;
         int x=0;
     }
 
@@ -133,8 +138,11 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
 
     @Override
     public int getItemCount() {
-        if(wallpaperFavPojoList==null)
+        if(wallpaperFavPojoList==null) {
+
             return 0;
+        }
+
         return wallpaperFavPojoList.size();
     }
 
