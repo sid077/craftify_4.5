@@ -42,10 +42,7 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
         this.mainViewModel = mainViewModel;
         this.database = database;
         this.fragmentManager = fragmentManager;
-        if(wallpaperFavPojoList==null||wallpaperFavPojoList.size()==0)
-         hasFav = false;
-        else
-            hasFav = true;
+        hasFav = wallpaperFavPojoList != null && wallpaperFavPojoList.size() != 0;
         int x=0;
     }
 

@@ -1,0 +1,62 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/auto_changer"
+       >
+
+        <SwitchPreferenceCompat
+            app:key="autoChange"
+           
+            app:useSimpleSummaryProvider="true"
+            app:summary="Wallpaper will change every time when screen is turned on."/>
+        <PreferenceCategory app:title="Craftify Swift"
+           >
+            <Preference app:summary="Go ad free using Craftify Swift app."
+                app:icon="@mipmap/icon"
+                app:key="swift"
+                />
+        </PreferenceCategory>
+
+        <PreferenceCategory app:title="Info"
+          >
+            <Preference
+                app:summary="@string/info_1">
+
+            </Preference>
+            <Preference
+                app:summary="@string/info_2">
+
+            </Preference>
+            <Preference
+                app:summary="@string/info_3">
+
+            </Preference>
+            <Preference
+                app:summary="@string/info_4">
+
+            </Preference>
+            <Preference
+                app:summary="@string/info_5">
+
+            </Preference>
+
+        </PreferenceCategory>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/lockscreen">
+
+     <Preference
+         app:summary="@string/lockscreen_summary"/>
+
+    </PreferenceCategory>
+<PreferenceCategory app:title="Other">
+    <Preference app:summary="Review the app"
+        app:key="review"/>
+    <Preference app:summary="@string/walp_by"
+        app:key="walpBy"/>
+    <Preference app:summary="@string/contact"
+        app:key="contact"/>
+
+
+</PreferenceCategory>
+</PreferenceScreen>

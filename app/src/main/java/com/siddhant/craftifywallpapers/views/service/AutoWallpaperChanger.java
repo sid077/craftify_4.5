@@ -118,7 +118,7 @@ public class AutoWallpaperChanger extends LifecycleService {
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
 
-                .setContentText("Wallpaper will change on phone unlock every time " )
+                .setContentText("Wallpaper will change on next device wake up" )
                 .setSmallIcon(R.drawable.ic_menu_gallery)
                 .setContentIntent(pendingIntent)
                 .setColor(Color.BLACK)

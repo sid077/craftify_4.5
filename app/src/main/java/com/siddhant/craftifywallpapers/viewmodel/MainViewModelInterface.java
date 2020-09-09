@@ -23,4 +23,5 @@ AppDatabase getDatabaseInstance(Context context);
      void startServiceForAutoChange(MainActivity mainActivity, int firstDigit, int lastDigit, String timeFormat, String category, Intent intent);
 
     void stopService(int intent);
+    void specialcatagory();
 }

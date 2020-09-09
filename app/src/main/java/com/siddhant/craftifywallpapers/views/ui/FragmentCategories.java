@@ -1,5 +1,6 @@
 package com.siddhant.craftifywallpapers.views.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,33 @@ public class FragmentCategories extends Fragment {
         View root = inflater.inflate(R.layout.catagory_fragment,container,false);
         recyclerView = root.findViewById(R.id.recyclerViewCategory);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),RecyclerView.VERTICAL,false));
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.fetchCategory();
+
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setItemViewCacheSize(30);
+//        recyclerView.cache
+        final Observer<ArrayList<WallpaperCategoryPojo>> observer = new Observer<ArrayList<WallpaperCategoryPojo>>() {
+            @Override
+            public void onChanged(ArrayList<WallpaperCategoryPojo> arrayList) {
+
+                recyclerView.setAdapter(new CatagoryRecyclerVIewAdapter(getActivity().getApplicationContext(),getFragmentManager(),arrayList));
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+
+            }
+        };
+        viewModel.getLiveDataCatagories().observe(this,observer);
+        int x=0;
         return root;
 
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
     }
 
     @Override
@@ -49,20 +75,9 @@ public class FragmentCategories extends Fragment {
     public void onStart() {
         super.onStart();
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.fetchCategory();
-       final Observer<ArrayList<WallpaperCategoryPojo>> observer = new Observer<ArrayList<WallpaperCategoryPojo>>() {
-            @Override
-            public void onChanged(ArrayList<WallpaperCategoryPojo> arrayList) {
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                recyclerView.setAdapter(new CatagoryRecyclerVIewAdapter(getActivity().getApplicationContext(),getFragmentManager(),arrayList));
 
-
-            }
-        };
-        viewModel.getLiveDataCatagories().observe(this,observer);
-        int x=0;
     }
+
 
 
 }

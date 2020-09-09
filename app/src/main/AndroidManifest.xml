@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
 
     <dist:module dist:instant="true" />
 
@@ -16,9 +17,11 @@
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
+
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        android:theme="@style/AppTheme">
+
         <activity android:name=".views.ui.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,21 +37,16 @@
 
         <activity
             android:name=".views.ui.PreviewWallpaperActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            >
-            <intent-filter >
-                <action android:name="joinRequest"></action>
-                <category android:name="android.intent.category.DEFAULT">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="joinRequest" />
 
-                </category>
+                <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".views.ui.PreviewPBWallpaperActivity" />
         <activity android:name=".views.ui.MainActivity">
             <intent-filter>
-
-
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
@@ -56,22 +54,15 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
         <service android:name=".views.service.NotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".views.service.AutoWallpaperChanger"
-
-            android:exported="true"
-
-
-
-            >
-
-        </service>
+            android:exported="true"></service>
 
         <provider
             android:name=".views.ui.SuggestionProvider"
@@ -80,7 +71,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>

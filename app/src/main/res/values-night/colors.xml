@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#121212</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimary">#263238</color>
+    <color name="colorPrimaryDark">#1c313a</color>
 <!--    <color name="colorAccent">#F78C2B</color>-->
-    <color name="colorAccent">#80FFFFFF</color>
-    <color name="colorBase">#34474E</color>
-    <color name="colorPrimaryLight">#5e727a</color>
+    <color name="colorAccent">#b0bec5</color>
     <color name="colorSecondary">#CEFFFFFF</color>
-    <color name="colorSecondaryLight">#5db8ff</color>
-    <color name="colorSecondaryDark">#005b9f</color>
-    <color name="colorTextSecondary">#99FFFFFF</color>
-    <color name="colorTextPrimary">#dcffffff</color>
-    <color name="cardPrimary">#1FFFFFFF</color>
-    <color name="colorNavDrawer">#F78C2B</color>
-    <color name="design_default_color_primary">#80FFFFFF</color>
-    <color name="colorControlNormal">#000000</color>
+    <color name="colorTextSecondary">#F0FFFFFF</color>
+    <color name="cardPrimary">#41000000</color>
+    <color name="colorToolbar">#1c313a</color>
+<!--    <color name="design_default_color_primary">#80FFFFFF</color>-->
+<!--    <color name="mtrl_btn_bg_color_selector_">#FFFFFF</color>-->
 </resources>
 <!--   colorprimary #263238-->

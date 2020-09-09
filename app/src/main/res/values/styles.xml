@@ -1,41 +1,39 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style  name="Theme.MaterialComponents.DayNight.NoActionBar." parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="searchViewStyle">@style/SearchViewMy</item>
-        <item name="colorControlNormal">@color/colorControlNormal</item>
-
-
-    </style >
-
-<!--    <style name="Theme.NoActionBar">-->
+    <!--    <style name="Theme.NoActionBar">-->
 <!--        <item name="windowActionBar">false</item>-->
 <!--        <item name="windowNoTitle">true</item>-->
 <!--    </style>-->
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="SearchViewMy" parent="Widget.MaterialComponents.ActionBar.Surface">
-        <item name="searchHintIcon">@drawable/ic_search_24dp</item>
-    </style>
-
-    <style name="myStyle">
-        <item name="android:fontFamily">@font/aclonica</item>
-        <item name="android:textSize">16sp</item>
-    </style>
 
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
         <item name="android:textColor">@color/colorTextSecondary</item>
 
     </style>
+
+
+        <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+            <item name="colorPrimary">#212121</item>
+            <item name="colorPrimaryVariant">#000000</item>
+            <item name="colorOnPrimary">#FFFFFF</item>
+            <item name="colorSecondary">@color/colorAccent</item>
+            <item name="colorSecondaryVariant">@color/colorAccent</item>
+            <item name="colorOnSecondary">#FFFFFF</item>
+            <item name="colorError">#F44336</item>
+            <item name="colorOnError">#FFFFFF</item>
+            <item name="colorSurface">#FFFFFF</item>
+
+            <item name="android:textColorPrimary">@color/colorTextSecondary</item>
+            <item name="colorOnSurface">#212121</item>
+            <item name="android:colorBackground">@color/background</item>
+            <item name="android:textCursorDrawable">@color/colorAccent</item>
+            <item name="colorOnBackground">#212121</item>
+        </style>
+        <color name="background">#FAFAFA</color>
+
+
 
 </resources>
 

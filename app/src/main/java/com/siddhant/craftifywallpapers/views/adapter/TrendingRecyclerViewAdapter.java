@@ -123,7 +123,7 @@ public class TrendingRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
                     holder.checkboxFav.setChecked(true);
             }
             Glide.with(context).load(wallpaperApiResponsePojo.getWallpaperPojos().get(position).getSrcUrl().
-                    getPortrait()).thumbnail(0.1f).into(holder.imageViewWallpaper);
+                    getPortrait()).override(240,200).thumbnail(0.1f).into(holder.imageViewWallpaper);
             holder.imageButtonInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

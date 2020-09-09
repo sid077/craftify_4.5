@@ -31,7 +31,7 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/cardPrimary"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/colorAccent"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +242,7 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="• Use this feature to set a new wallpaper every time you unlock your device."
+                        android:text="@string/info_1"
                         android:textAlignment="viewStart" />
 
                     <TextView
@@ -252,7 +252,7 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="• Your device should be at least 20% Charged."
+                        android:text="@string/info_2"
                         android:textAlignment="viewStart" />
 
                     <TextView
@@ -262,7 +262,17 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="• No need of internet, wallpapers will be taken from your favourites."
+                        android:text="@string/info_3"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/info_4"
                         android:textAlignment="viewStart" />
 
                     <TextView
@@ -272,8 +282,9 @@
                         android:layout_margin="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="• The Feature will work on all android devices."
+                        android:text="@string/info_5"
                         android:textAlignment="viewStart" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

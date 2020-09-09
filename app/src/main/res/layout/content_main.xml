@@ -9,32 +9,30 @@
     android:orientation="vertical"
     tools:context=".views.ui.MainActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabPexels"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rVSpecials"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:onClick="openPexelSite"
-        app:backgroundTint="#FFFFFF"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/fabChTheme"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/viewPagerMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/pexels" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
 
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/tabLayoutMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_conversion_absoluteHeight="731dp"
         tools:layout_conversion_absoluteWidth="411dp">
 
@@ -44,14 +42,12 @@
         android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded"
         android:minHeight="56dp"
         android:shape="ring"
         android:visibility="visible"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        app:cardMaxElevation="8dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -61,13 +57,32 @@
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@drawable/rounded">
+            android:background="@color/colorToolbar">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="@+id/textViewTitle">
+
+                <ImageView
+                    android:id="@+id/floatingActionButtonPixa"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_logopixa" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 app:cardBackgroundColor="#00FFFFFF"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
@@ -85,39 +100,54 @@
                     android:button="@drawable/nav_drawer"
                     android:foregroundGravity="center_vertical|center_horizontal"
                     android:gravity="center_horizontal|center_vertical"
-                    app:buttonTint="@color/colorAccent" />
+                    app:buttonTint="@android:color/white" />
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:fontFamily="@font/aclonica"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="Craftify"
                 android:textAlignment="gravity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/searchView"
+                app:layout_constraintEnd_toStartOf="@+id/fabPexels"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabPexels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="openPexelSite"
+                app:elevation="0dp"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="@id/searchView"
+                app:layout_constraintEnd_toStartOf="@+id/searchView"
+                app:srcCompat="@drawable/pexels" />
 
             <SearchView
                 android:id="@+id/searchView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:maxWidth="250dp"
+                android:layout_marginEnd="16dp"
 
+                android:maxWidth="250dp"
                 android:searchIcon="@drawable/ic_search_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
 
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:searchHintIcon="@drawable/ic_search_24dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--android:scrollbarThumbHorizontal="@drawable/ic_search_24dp"-->
@@ -141,6 +171,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:strokeColor="@color/colorAccent"
         app:strokeWidth="0dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTrending"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+
+        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/gradient"
+            android:gravity="center"
+
+            android:text="Trending"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView3"
@@ -202,10 +260,10 @@
         app:tabTextColor="@color/colorAccent">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_view_quilt_24dp"
-            android:importantForAccessibility="yes" />
+            android:icon="@drawable/ic_view_quilt_24dp" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -235,5 +293,12 @@
         app:layout_constraintVertical_bias="1.0">
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="-11dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,26 +1,36 @@
 package com.siddhant.craftifywallpapers.views.adapter;
 
+import android.app.WallpaperManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
@@ -33,11 +43,14 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.NativeExpressAdView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.views.ui.FragmentTrending;
+import com.siddhant.craftifywallpapers.views.ui.MainActivity;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -121,20 +134,39 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
 //        else {
             final ViewHolderCat holder = (ViewHolderCat) viewHolder;
 
-            Glide.with(context)
-                    .load(arrayList.get(position).getUrl())
-                    .into(new CustomTarget<Drawable>() {
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            holder.constraintLayout.setBackground(resource);
-                        }
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
+        Glide.with(context)
+                .asBitmap()
+                .load(arrayList.get(position).getUrl())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(holder.imageView.getWidth(),holder.imageView.getHeight())
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 
+                        if (resource != null && !resource.isRecycled()) {
+                            Palette palette = Palette.from(resource).generate();
+                            Palette.Swatch swatch = getMostPopulousSwatch(palette);
+                            if(swatch != null) {
+                                int startColor = ContextCompat.getColor(context, R.color.gnt_gray);
+                                int endColor = swatch.getRgb();
+
+
+                                   holder.constraintLayout.setBackground(new ColorDrawable(endColor));
+                                 //  Bitmap bitmap = Bitmap.createScaledBitmap(resource,holder.imageView.getWidth(),holder.imageView.getHeight(),false);
+                                   holder.imageView.setImageBitmap(resource);
+
+
+
+
+                            }
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
             holder.textViewName.setText(arrayList.get(position).getName());
 //        Picasso.get().load(arrayList.get(position).getUrl()).fit().into(holder.imageView);
             //Glide.with(context).load(arrayList.get(position).getUrl()).placeholder(R.drawable.th1).thumbnail(0.1f).into(holder.imageView);
@@ -144,8 +176,16 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
                     FragmentTrending fragment = new FragmentTrending();
                     Bundle bundle = new Bundle();
                     bundle.putString("query", arrayList.get(position).getName());
+                    bundle.putString("category", arrayList.get(position).getName());
                     fragment.setArguments(bundle);
-                    fragment.show(fragmentManager, "category");
+                    fragment.show(fragmentManager, "category" + position);
+
+                    try {
+                        MainActivity.firebaseAnalytics.setUserProperty("category", arrayList.get(position).getName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ;
+                    }
                 }
             });
 
@@ -161,6 +201,7 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
     public class ViewHolderCat extends RecyclerView.ViewHolder {
         TextView textViewName;
         ConstraintLayout constraintLayout;
+        ImageView imageView;
 
 
 
@@ -168,7 +209,7 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.textViewCategoryNameRaw);
-
+            imageView = itemView.findViewById(R.id.imageViewCat);
             constraintLayout = itemView.findViewById(R.id.constraitLayoutCatagory);
 
         }
@@ -179,8 +220,7 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
 
         NativeExpressAdViewHolder(View view) {
             super(view);
-            ;
-          // NativeExpressAdView
+            // NativeExpressAdView
 //            mAdView = view.findViewById(R.id.nativeAd);
             template = view.findViewById(R.id.nativeAd);
             AdRequest adRequest = new AdRequest.Builder().build();
@@ -194,5 +234,16 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
                 "ca-app-pub-2724635946881674/6235164658","ca-app-pub-2724635946881674/7554865622"};
         return ids[rand];
 
+    }
+    Palette.Swatch getMostPopulousSwatch(Palette palette) {
+        Palette.Swatch mostPopulous = null;
+        if (palette != null) {
+            for (Palette.Swatch swatch : palette.getSwatches()) {
+                if (mostPopulous == null || swatch.getPopulation() > mostPopulous.getPopulation()) {
+                    mostPopulous = swatch;
+                }
+            }
+        }
+        return mostPopulous;
     }
 }

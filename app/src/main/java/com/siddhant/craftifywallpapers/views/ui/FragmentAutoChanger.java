@@ -96,59 +96,13 @@ public class FragmentAutoChanger extends Fragment {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!FavoriteRecyclerViewAdapter.hasFav){
-                    Toast.makeText(getActivity().getApplicationContext(),"It seems you have no wallpapers as favourites",Toast.LENGTH_LONG).show();
-                    aSwitch.setChecked(false);
-                    return;
-                }
 
-                Intent i = new Intent();
-//                    int timeInMillis= 1000;
-//                    i.putExtra("timeInMillis",timeInMillis);
-//                    i.putExtra("timeFormat",timeFormat);
-                i.setComponent(new ComponentName("com.siddhant.craftifywallpapers","com.siddhant.craftifywallpapers.views.service.AutoWallpaperChanger"));
-                if(isChecked){
-                    aSwitch.setText("Automatic Wallpapers enabled");
-//                    ScreenOnReciever reciever = new ScreenOnReciever();
-//                    IntentFilter filter = new IntentFilter();
-//                    filter.addAction(Intent.ACTION_SCREEN_ON);
-//                    getActivity().registerReceiver(reciever,filter);
-
-                    if(i.getComponent()==null)
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.siddhant.craftifywallpapers")));
-                        Snackbar.make(getView(),"Please download our primary app",Snackbar.LENGTH_SHORT).show();
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Snackbar.make(getView(),"Automatic Wallpaper changer enabled",Snackbar.LENGTH_SHORT).show();
-                        if(interstitialAd.isLoaded())
-                            interstitialAd.show();
-                        getActivity().startForegroundService(i);
-
-                    }else {
-                        getActivity().startService(i);
-                        if(interstitialAd.isLoaded())
-                            interstitialAd.show();
-                        Snackbar.make(getView(),"Automatic Wallpaper changer enabled",Snackbar.LENGTH_SHORT).show();
-                    }
-
-                }
-                else {
-                    aSwitch.setText("Automatic Wallpapers disabled");
-                    getActivity().stopService(i);
-                    if(interstitialAd.isLoaded())
-                        interstitialAd.show();
-                    Snackbar.make(getView(),"Automatic Wallpaper changer disabled",Snackbar.LENGTH_SHORT).show();
-
-
-
-                }
             }
         });
 
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        ((MainViewModel) viewModel).fetchCategory();
+        viewModel.fetchCategory();
         final Observer<ArrayList<WallpaperCategoryPojo>> observer = new Observer<ArrayList<WallpaperCategoryPojo>>() {
             @Override
             public void onChanged(ArrayList<WallpaperCategoryPojo> arrayList) {
@@ -163,7 +117,7 @@ public class FragmentAutoChanger extends Fragment {
 
             }
         };
-        ((MainViewModel) viewModel).getLiveDataCatagories().observe(this,observer);
+        viewModel.getLiveDataCatagories().observe(this,observer);
 
         spinnerFirstDigit.setAdapter(ArrayAdapter.createFromResource(getActivity().getApplicationContext(),R.array.numbers_array,R.layout.simple_spinner));
 

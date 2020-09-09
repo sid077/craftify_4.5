@@ -1,17 +1,21 @@
 package com.siddhant.craftifywallpapers.views.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.siddhant.craftifywallpapers.models.WallpaperPBPojo;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
+import com.siddhant.craftifywallpapers.views.ui.FragmentAllTrending;
 import com.siddhant.craftifywallpapers.views.ui.FragmentAutoChanger;
 import com.siddhant.craftifywallpapers.views.ui.FragmentCategories;
 import com.siddhant.craftifywallpapers.views.ui.FragmentFavourites;
 import com.siddhant.craftifywallpapers.views.ui.FragmentTrending;
 import com.siddhant.craftifywallpapers.views.ui.MainActivity;
+import com.siddhant.craftifywallpapers.views.ui.SettingsFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,15 +26,23 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
     FragmentManager fragmentManager;
     MainActivity activity;
     List<WallpaperFavPojo> wallpaperFavPojos;
+    List<WallpaperPBPojo.Hits> pbWallpaperList;
     public ViewPagerAdapterMain(FragmentManager fm, MainActivity activity) {
         super(fm);
         fragmentManager =fm;
-        this.activity = activity;
+
     }
 
-    public ViewPagerAdapterMain(FragmentManager supportFragmentManager, List<WallpaperFavPojo> wallpaperFavPojo) {
+//    public ViewPagerAdapterMain(FragmentManager supportFragmentManager, List<WallpaperFavPojo> wallpaperFavPojo) {
+//        super(supportFragmentManager);
+//        wallpaperFavPojos = wallpaperFavPojo;
+//    }
+
+    public ViewPagerAdapterMain(FragmentManager supportFragmentManager, MainActivity activity, List<WallpaperPBPojo.Hits> hits) {
         super(supportFragmentManager);
-        wallpaperFavPojos = wallpaperFavPojo;
+        pbWallpaperList = hits;
+
+        this.activity = activity;
     }
 
     @Override
@@ -41,7 +53,12 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-
+//            case 0:
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("PBList", (Serializable) pbWallpaperList);
+//                        FragmentAllTrending fragmentAllTrending = new FragmentAllTrending();
+//                        fragmentAllTrending.setArguments(bundle);
+//                return fragmentAllTrending;
             case 0:
                // activity.textViewTitle.setText("Gallery");
                 return new FragmentCategories();
@@ -52,13 +69,13 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
                 return new FragmentFavourites();
                 else {
                     FragmentFavourites fragmentFavourites = new FragmentFavourites();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("wallpaperFav", (Serializable) wallpaperFavPojos);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putSerializable("wallpaperFav", (Serializable) wallpaperFavPojos);
                     return fragmentFavourites;
                 }
             case 2:
               //  activity.textViewTitle.setText("Automatic Wallpapers");
-                return new FragmentAutoChanger();
+                return new SettingsFragment();
 
         }
         return null;

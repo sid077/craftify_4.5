@@ -5,16 +5,44 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rounded_inverted"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="36dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:background="@drawable/ic_drag_handle_black_24dp"
-        app:srcCompat="@drawable/ic_drag_handle_black_24dp" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:cardCornerRadius="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorToolbar"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_drag_handle_black_24dp"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_drag_handle_black_24dp"
+                app:tintMode="src_in" />
+
+            <TextView
+                android:id="@+id/textViewCat"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="0dp"
+                android:gravity="center|center_horizontal"
+                android:text="Category"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <ProgressBar
         android:id="@+id/progressBarTrending"
@@ -30,7 +58,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewTrendingMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 

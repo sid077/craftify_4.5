@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardPrimary"
-        app:cardCornerRadius="10dp">
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,10 +40,12 @@
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="2"
+                android:gravity="center"
                 android:text="Wallpaper Details"
+                android:textAlignment="viewStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -53,23 +57,30 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="2"
+                    android:gravity="center"
                     android:text="Photographer "
+                    android:textAlignment="viewStart"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewPhotographerNameInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:autoLink="all" />
+                    android:autoLink="all"
+                    android:gravity="center"
+                    android:textAlignment="viewStart" />
             </LinearLayout>
 
             <View
@@ -79,23 +90,30 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="2"
+                    android:gravity="center"
                     android:text="Photographer Url "
+                    android:textAlignment="viewStart"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewPhotographerUrlInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:autoLink="all" />
+                    android:autoLink="all"
+                    android:gravity="center"
+                    android:textAlignment="viewStart" />
             </LinearLayout>
 
             <View
@@ -105,24 +123,30 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="2"
+                    android:gravity="center"
                     android:text="Wallpaper Url "
-                    android:textAlignment="textStart"
+                    android:textAlignment="viewStart"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewScUrlInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:autoLink="all" />
+                    android:autoLink="all"
+                    android:gravity="center"
+                    android:textAlignment="viewStart" />
             </LinearLayout>
 
             <View
@@ -132,7 +156,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
@@ -140,17 +164,22 @@
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="0.7"
+                    android:gravity="center"
                     android:text="Dimensions"
+                    android:textAlignment="viewStart"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewWidthInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
                     android:layout_weight="0.5"
+                    android:gravity="center"
                     android:hint="Width"
                     android:textAlignment="viewEnd"
                     android:textStyle="bold" />
@@ -158,16 +187,18 @@
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
+                    android:gravity="center"
                     android:text="X"
                     android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/textViewHeightInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
+                    android:gravity="center"
                     android:hint="Height"
                     android:textAlignment="viewStart"
                     android:textStyle="bold" />

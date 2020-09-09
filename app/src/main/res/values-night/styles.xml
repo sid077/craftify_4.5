@@ -1,22 +1,23 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="Theme.MaterialComponents.DayNight.NoActionBar." parent="Theme.MaterialComponents">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryNightDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="colorControlNormal">@color/colorControlNormal</item>
-        <item name="android:colorControlHighlight">@color/colorControlNormal</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#C6FFFFFF</item>
+        <item name="colorPrimaryVariant">#FFFFFF</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSecondaryVariant">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorTextSecondary</item>
+        <item name="colorOnSecondary">#1E1E1E</item>
+        <item name="colorError">#F44336</item>
+        <item name="colorOnError">#FFFFFF</item>
 
 
 
+        <item name="colorSurface">#504F4F</item>
+        <item name="colorOnSurface">#212121</item>
+        <item name="android:colorBackground">#4D4560</item>
+        <item name="colorOnBackground">#212121</item>
     </style>
-
-
-
-
+    <color name="background">#FAFAFA</color>
 
 </resources>

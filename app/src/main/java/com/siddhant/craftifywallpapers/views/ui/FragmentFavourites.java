@@ -14,6 +14,9 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
 import com.siddhant.craftifywallpapers.repositories.AppDatabase;
@@ -28,6 +31,7 @@ public class FragmentFavourites extends Fragment {
     List<WallpaperFavPojo> wallpaperFavPojoList;
     private AppDatabase database;
     private MainActivity mainActivity;
+    private AdView adView;
 
 
     @Nullable
@@ -39,6 +43,18 @@ public class FragmentFavourites extends Fragment {
         mainActivity = (MainActivity) getActivity();
         viewModel = mainActivity.viewModel;
         database = mainActivity.getDatabase();
+
+//        try{
+//            adView = getView().findViewById(R.id.adView);
+//            AdRequest adRequest = new AdRequest.Builder().build();
+//            adView.setAdSize(AdSize.BANNER);
+//            adView.setAdUnitId(getString(R.string.UNIT_ID_BANNER2));
+//            adView.loadAd(adRequest);
+//        }
+//        catch (Exception e){
+//
+//            e.printStackTrace();
+//        }
 
 int x=0;
         final Context context = getActivity().getApplicationContext();

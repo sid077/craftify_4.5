@@ -23,6 +23,7 @@ android {
 
     lintOptions {
         resourcePrefix 'gnt_'
+
     }
 }
 

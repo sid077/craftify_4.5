@@ -8,8 +8,10 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,7 +39,7 @@ public class ScreenOnReciever extends BroadcastReceiver {
 
 
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)){
             db = Room.databaseBuilder(context, AppDatabase.class,"RoomDb").build();
             if(db != null)
@@ -55,13 +57,25 @@ public class ScreenOnReciever extends BroadcastReceiver {
 
                                     final WallpaperManager manager = WallpaperManager.getInstance(context);
                                     int nos = new Random().nextInt(wallpaperFavPojos.size());
-
-                                    Glide.with(context).asBitmap().load(wallpaperFavPojos.get(nos).getPortraitUrl()).into(new SimpleTarget<Bitmap>() {
+                                    DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+                                    final int height1 = metrics.heightPixels;
+                                    final int width1 = metrics.widthPixels;
+                                    manager.suggestDesiredDimensions(width1, height1);
+                                    manager.setWallpaperOffsetSteps(1,1);
+                                    Glide.with(context).asBitmap().timeout(10000).override(width1,height1).load(wallpaperFavPojos.get(nos).getPortraitUrl()).into(new SimpleTarget<Bitmap>() {
                                         @Override
                                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                             try {
-                                                manager.setBitmap(resource);
+                                                Bitmap scaledBitmap = Bitmap.createScaledBitmap(resource,width1,height1,false);
+                                                manager.setBitmap(scaledBitmap);
+                                                manager.setWallpaperOffsetSteps(1,1);
+                                                manager.suggestDesiredDimensions(width1,height1);
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                                    manager.setBitmap(scaledBitmap,null,true,WallpaperManager.FLAG_LOCK);
+                                                }
+
                                                 manager.forgetLoadedWallpaper();
+                                                scaledBitmap.recycle();
 
                                             } catch (IOException e) {
                                                 e.printStackTrace();

@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,14 +31,16 @@ import java.util.List;
 public class FragmentTrending extends BottomSheetDialogFragment {
     private RecyclerView recyclerView ;
     private MainViewModel viewModel;
-    private String query;
+    private String query="Wallpapers";
     private MainActivity mainActivity;
     private ProgressBar progressBar;
     private GridLayoutManager layoutManager;
     private int pastVisibleItem;
     private int visibleItemCount;
     private int totalItemCount;
+    private TextView textViewCategory;
     private boolean loading= true;
+    private CardView cardViewCat;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,11 +74,21 @@ public class FragmentTrending extends BottomSheetDialogFragment {
         View root = inflater.inflate(R.layout.trending_fragment,container,false);
         progressBar = root.findViewById(R.id.progressBarTrending);
         progressBar.setVisibility(View.VISIBLE);
-
+        cardViewCat = root.findViewById(R.id.cardViewCat);
+        textViewCategory = root.findViewById(R.id.textViewCat);
         Log.i("called","oncreate");
         recyclerView = root.findViewById(R.id.recyclerviewTrendingMain);
         Bundle bundle = getArguments();
-        query = bundle.getString("query");
+        if(bundle!=null) {
+            query = bundle.getString("query");
+            String category = bundle.getString("category");
+        }
+            textViewCategory.setText(query);
+
+//        if(category!=null) {
+//            textViewCategory.setText(category);
+//            cardViewCat.setVisibility(View.VISIBLE);
+//        }
         mainActivity = (MainActivity) getActivity();
         viewModel = mainActivity.viewModel;
         viewModel.loadTrending(query,progressBar);

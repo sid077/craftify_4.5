@@ -10,11 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.siddhant.craftifywallpapers.R;
 
 public class BottomSheetContactUs extends BottomSheetDialogFragment {
-    TextView textView;
+  TextView textView;
+  AdView adViewBannner;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,10 @@ public class BottomSheetContactUs extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.contact_details,container,false);
-        textView = view.findViewById(R.id.textViewIconDetails);
+       textView = view.findViewById(R.id.textViewIconDetails);
+        adViewBannner = view.findViewById(R.id.adView2);
+
+        adViewBannner.loadAd(new AdRequest.Builder().build());
         return view;
     }
 

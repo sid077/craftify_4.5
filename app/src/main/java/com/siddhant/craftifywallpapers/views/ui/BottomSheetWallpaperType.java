@@ -48,6 +48,9 @@ public class BottomSheetWallpaperType extends BottomSheetDialogFragment {
         cardViewPortrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cardViewPortrait.setClickable(false);
+                cardViewLandscape.setClickable(false);
+                cardViewOriginal.setClickable(false);
                 previewWallpaperActivity.progressBar.setVisibility(View.VISIBLE);
                 // progressBar.setProgress(0);
                 Point p = new Point();
@@ -56,26 +59,40 @@ public class BottomSheetWallpaperType extends BottomSheetDialogFragment {
                 final int height = p.y, width = p.x;
                 previewWallpaperActivity.setAsWallpaper(0,width,height);
                 dismiss();
+                cardViewPortrait.setClickable(true);
+                cardViewLandscape.setClickable(true);
+                cardViewOriginal.setClickable(true);
 
             }
         });
         cardViewOriginal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cardViewPortrait.setClickable(false);
+                cardViewLandscape.setClickable(false);
+                cardViewOriginal.setClickable(false);
                 previewWallpaperActivity.progressBar.setVisibility(View.VISIBLE);
                 //  progressBar.setProgress(0);
                 previewWallpaperActivity.setAsWallpaper(1,0,0);
                 dismiss();
+
 
             }
         });
         cardViewLandscape.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cardViewPortrait.setClickable(false);
+                cardViewLandscape.setClickable(false);
+                cardViewOriginal.setClickable(false);
                 previewWallpaperActivity.progressBar.setVisibility(View.VISIBLE);
                 //  progressBar.setProgress(0);
                 previewWallpaperActivity.setAsWallpaper(2,0,0);
                 dismiss();
+                cardViewPortrait.setClickable(true);
+                cardViewLandscape.setClickable(true);
+                cardViewOriginal.setClickable(true);
+
             }
         });
     }

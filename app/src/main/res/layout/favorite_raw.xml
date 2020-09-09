@@ -14,8 +14,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
+
+        android:elevation="0dp"
+        app:cardMaxElevation="0dp"
         app:cardBackgroundColor="@color/cardPrimary"
         app:cardCornerRadius="10dp">
 

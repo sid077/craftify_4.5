@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="4dp"
-    android:background="#00FFFFFF"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
-        app:cardBackgroundColor="@color/cardPrimary"
-        app:cardCornerRadius="10dp">
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="0dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="26dp"
             android:orientation="vertical">
 
             <ImageView
@@ -29,41 +31,9 @@
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_drag_handle_black_24dp" />
 
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="2dp"
-                android:background="@android:drawable/edit_text" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textViewIconDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:autoLink="all|web"
-                        android:textColor="@color/colorSecondary" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
@@ -72,22 +42,29 @@
                 <TextView
                     android:id="@+id/tv"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
                     android:text="Developer :"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorSecondary" />
 
                 <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
                     android:text="Siddhant Dubey"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorSecondary" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
@@ -96,30 +73,38 @@
                 <TextView
 
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
                     android:text="Wallpapers by :"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorSecondary" />
 
                 <TextView
 
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="Pexels"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:text="Pexels "
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorSecondary" />
 
                 <TextView
                     android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:autoLink="web"
-                    android:text="www.pexels.com"
-                    android:textColor="@color/colorSecondary" />
+                    android:text="www.pexels.com  "
+                    android:textColor="@color/colorSecondary"
+                    tools:visibility="gone" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:layout_margin="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
@@ -128,19 +113,46 @@
                 <TextView
 
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center|center_horizontal|center_vertical"
                     android:text="E-mail : "
-                    android:textColor="@color/colorSecondary" />
+                    android:textColor="@color/colorSecondary"
+                    android:textAlignment="viewStart" />
 
                 <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
                     android:autoLink="email"
+                    android:gravity="center|center_horizontal|center_vertical"
                     android:text="siddhant.d777@gmail.com"
-                    android:textColor="@color/colorSecondary" />
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorSecondary"
+                    android:layout_marginStart="4dp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewIconDetails"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_margin="16dp"
+                android:gravity="fill"
+                android:textAlignment="viewStart" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:adSize="BANNER"
+
+                app:adUnitId="@string/UNIT_ID_BANNER2" />
 
         </LinearLayout>
 

@@ -49,7 +49,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@drawable/ic_menu_gallery"
+                    android:background="@drawable/ic_collections_24dp"
                     android:foreground="?android:attr/selectableItemBackground" />
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Portrait"
+                    android:text="Portrait\n(Center Zoom)"
                     android:textColor="@color/colorTextSecondary" />
             </LinearLayout>
 
@@ -78,6 +78,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
+            android:visibility="visible"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp">
@@ -86,7 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00FFFFFF"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/imageButtonSetWallpaperLandscape"
@@ -104,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Landscape"
+                    android:text="Portrait\n(Fit)"
                     android:textColor="@color/colorTextSecondary" />
             </LinearLayout>
 
@@ -152,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Original"
+                    android:text="Original\n(Sliding)"
                     android:textColor="@color/colorTextSecondary" />
             </LinearLayout>
 

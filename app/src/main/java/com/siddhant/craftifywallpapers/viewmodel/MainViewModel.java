@@ -20,29 +20,37 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.siddhant.craftifywallpapers.models.WallpaperApiResponsePojo;
 import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
+import com.siddhant.craftifywallpapers.models.WallpaperPBPojo;
 import com.siddhant.craftifywallpapers.models.database.WallpaperFavPojo;
 import com.siddhant.craftifywallpapers.repositories.AppDatabase;
 import com.siddhant.craftifywallpapers.repositories.WallpaperApiService;
+import com.siddhant.craftifywallpapers.repositories.WallpaperPBApiService;
 import com.siddhant.craftifywallpapers.views.ui.MainActivity;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 public class MainViewModel extends ViewModel implements MainViewModelInterface{
 
     private ArrayList<WallpaperCategoryPojo> arrayListCategories;
-                private MutableLiveData<List<WallpaperFavPojo>> wallpaperLiveData = new MutableLiveData<>();
-                private List<WallpaperFavPojo> wallpaperFavPojos;
-
+    private MutableLiveData<List<WallpaperFavPojo>> wallpaperLiveData = new MutableLiveData<>();
+    private List<WallpaperFavPojo> wallpaperFavPojos;
+    public MutableLiveData<List<WallpaperPBPojo.Hits>> mutableLiveDataWallpaperPB = new MutableLiveData<>();
+    public  MutableLiveData<List<String>> specialsCat = new MutableLiveData<>();
 
     public MutableLiveData<WallpaperApiResponsePojo> getLiveData() {
         return liveData;
@@ -65,7 +73,7 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
         public void onResponse(Call<WallpaperApiResponsePojo> call, Response<WallpaperApiResponsePojo> response) {
            String code =  response.headers().get("X-Ratelimit-Remaining");
 
-           Log.i("Remaining requests ",code);
+//           Log.i("Remaining requests ",code);
            if(Integer.parseInt(code)<=0){
                return;
            }
@@ -86,6 +94,35 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
         }
     });
     int x =0;
+}
+public void loadPbPhotos(String imageType,
+                         String orientation,String category, int minWidth, int minHeight,
+                        String[] colors,  String order){
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://pixabay.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    if(imageType==null)
+        imageType = "Wallpapers";
+    final WallpaperPBApiService wallpaperPBApiService = retrofit.create(WallpaperPBApiService.class);
+    Call<WallpaperPBPojo> call = wallpaperPBApiService.getWallpapers("10793550-60f993eb666d1f9d4de1f02ab", imageType,"all",
+             "vertical",null, minWidth,  minHeight, colors, false,true, order,70);
+
+    call.enqueue(new Callback<WallpaperPBPojo>() {
+        @Override
+        public void onResponse(Call<WallpaperPBPojo> call, Response<WallpaperPBPojo> response) {
+            if(response.isSuccessful()){
+                mutableLiveDataWallpaperPB.postValue(response.body().getHits());
+            }
+            else {
+                Log.d("VIEWMODELMAIN","PB CALL UNSUCCESSFUL");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<WallpaperPBPojo> call, Throwable t) {
+            Log.d("VIEWMODELMAIN","PB CALL FAILED");
+        }
+    });
 }
 
     @Override
@@ -219,5 +256,34 @@ public class MainViewModel extends ViewModel implements MainViewModelInterface{
                 android.os.Process.killProcess(processId);
             }
         }).start();
+    }
+
+    @Override
+    public void specialcatagory() {
+        List<String> specials = new ArrayList<>();
+        specials.add("Quotes");
+
+        specials.add("Flowers");
+        specials.add("Sunset");
+
+        specials.add("Scenery");
+        specials.add("Emoji");
+      //  specials.add("Flags");
+        specials.add("Vectors");
+        specials.add("Cartoons");
+
+        specialsCat.postValue(specials);
+
+
+
+    }
+
+    public void addFeedbackToFirebase(float rating, int stars, String feedback) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        String uid = UUID.randomUUID().toString();
+        reference.child("feedbacks").child(uid).child("rating").setValue(rating);
+        reference.child("feedbacks").child(uid).child("stars").setValue(stars);
+        reference.child("feedbacks").child(uid).child("feedback").setValue(feedback);
+
     }
 }
