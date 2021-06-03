@@ -95,6 +95,7 @@ public class CatagoryRecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int position) {
+
         int viewType = getItemViewType(position);
 //        if(viewType==1){
 //            final NativeExpressAdViewHolder nativeExpressHolder = (NativeExpressAdViewHolder) viewHolder;

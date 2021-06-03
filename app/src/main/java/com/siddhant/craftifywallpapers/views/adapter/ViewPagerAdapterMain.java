@@ -33,9 +33,7 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
 
     }
 
-//    public ViewPagerAdapterMain(FragmentManager supportFragmentManager, List<WallpaperFavPojo> wallpaperFavPojo) {
-//        super(supportFragmentManager);
-//        wallpaperFavPojos = wallpaperFavPojo;
+
 //    }
 
     public ViewPagerAdapterMain(FragmentManager supportFragmentManager, MainActivity activity, List<WallpaperPBPojo.Hits> hits) {
@@ -53,18 +51,13 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-//            case 0:
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("PBList", (Serializable) pbWallpaperList);
-//                        FragmentAllTrending fragmentAllTrending = new FragmentAllTrending();
-//                        fragmentAllTrending.setArguments(bundle);
-//                return fragmentAllTrending;
+
             case 0:
-               // activity.textViewTitle.setText("Gallery");
+
                 return new FragmentCategories();
-               // return new FragmentTrending();
+
             case 1:
-             //   activity.textViewTitle.setText("Favourites");
+
                 if(wallpaperFavPojos == null)
                 return new FragmentFavourites();
                 else {
@@ -74,7 +67,7 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
                     return fragmentFavourites;
                 }
             case 2:
-              //  activity.textViewTitle.setText("Automatic Wallpapers");
+
                 return new SettingsFragment();
 
         }

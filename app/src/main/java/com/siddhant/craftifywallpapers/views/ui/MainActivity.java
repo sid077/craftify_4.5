@@ -249,21 +249,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                          fabChangeThemen.setVisibility(View.VISIBLE);
 
                          textViewTitle.setText(R.string.craftify);
-                        // recyclerViewSpecials.setVisibility(View.VISIBLE);
-                        // tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
+
                          tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_border_tab_layout_24dp);
                          break;
                      case 1:
                          fabChangeThemen.setVisibility(View.GONE);
                          textViewTitle.setText(R.string.fav);
                          tabLayoutMain.getTabAt(1).setIcon(R.drawable.ic_favorite_black_tablayout_24dp);
-                        // recyclerViewSpecials.setVisibility(View.GONE);
+
                          break;
-//                     case 2:
-//                         textViewTitle.setText(R.string.fav);
-//                        // recyclerViewSpecials.setVisibility(View.GONE);
-//                         tab.setIcon(R.drawable.ic_favorite_black_tablayout_24dp);
-//                         break;
+
+
                      case 2:
                          textViewTitle.setText(R.string.craftify);
                          fabChangeThemen.setVisibility(View.VISIBLE);
@@ -587,9 +583,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

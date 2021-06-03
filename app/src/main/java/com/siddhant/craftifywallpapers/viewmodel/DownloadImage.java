@@ -1,5 +1,6 @@
 package com.siddhant.craftifywallpapers.viewmodel;
 
+import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,10 +22,16 @@ public class DownloadImage extends AsyncTask<String,Integer,Bitmap> {
    private Bitmap bitmap = null;
     private ProgressBar progressBar;
     private Context context;
+    ProgressDialog mProgressDialog;
 
     public DownloadImage(ProgressBar progressBar, Context context) {
         this.progressBar = progressBar;
-
+        mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setMessage("Please wait while the wallpaper is being downloaded!");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog.setCancelable(true);
+        mProgressDialog.setMax(100);
         this.context = context;
     }
 
@@ -33,6 +40,13 @@ public class DownloadImage extends AsyncTask<String,Integer,Bitmap> {
         context = null;
     }
 
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        mProgressDialog.setProgress(values[0]);
+
+
+
+    }
 
     @Override
     protected void onPreExecute(){
@@ -44,6 +58,7 @@ public class DownloadImage extends AsyncTask<String,Integer,Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
+        mProgressDialog.dismiss();
 
 
     }

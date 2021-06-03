@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
+
 import com.siddhant.craftifywallpapers.R;
 import com.siddhant.craftifywallpapers.models.WallpaperCategoryPojo;
 import com.siddhant.craftifywallpapers.viewmodel.MainViewModel;
@@ -30,11 +31,13 @@ public class FragmentCategories extends Fragment {
 
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.catagory_fragment,container,false);
         recyclerView = root.findViewById(R.id.recyclerViewCategory);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),RecyclerView.VERTICAL,false));
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.fetchCategory();
@@ -45,6 +48,7 @@ public class FragmentCategories extends Fragment {
         final Observer<ArrayList<WallpaperCategoryPojo>> observer = new Observer<ArrayList<WallpaperCategoryPojo>>() {
             @Override
             public void onChanged(ArrayList<WallpaperCategoryPojo> arrayList) {
+
 
                 recyclerView.setAdapter(new CatagoryRecyclerVIewAdapter(getActivity().getApplicationContext(),getFragmentManager(),arrayList));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

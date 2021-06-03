@@ -110,7 +110,7 @@ public class AutoWallpaperChanger extends LifecycleService {
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription("hello");
+            channel.setDescription("autowallpaper_craftify");
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }

@@ -121,9 +121,7 @@ public class PreviewWallpaperActivity extends AppCompatActivity {
         cardViewLockscreen = view.findViewById(R.id.cardViewLockscreen);
 
         progressBar = view.findViewById(R.id.progressBarSetWallpaper);
-//        imageViewLockscreeen.setImageResource(R.drawable.ic_screen_lock_portrait_24dp);
-//        imageViewWallpaper.setImageResource(R.drawable.ic_wallpaper_24dp);
-//        imageButtonInfo.setImageResource(R.drawable.ic_info_black_24dp);
+//
 
         Intent intent = getIntent();
         stringUrl = new ArrayList<>();
